@@ -1,0 +1,205 @@
+--------- beginning of main
+10-13 10:44:53.249  1022  1731 I APM_AudioPolicyManager: setStreamVolumeIndex() stream 3, device 0x0001, index 5
+10-13 10:44:53.249  1022  1731 I APM_AudioPolicyManager: setVolumeIndexForAttributes: attributes={ Content type: AUDIO_CONTENT_TYPE_UNKNOWN Usage: AUDIO_USAGE_MEDIA Source: AUDIO_SOURCE_DEFAULT Flags: 0x0 Tags:  } index=5 device=0x1
+10-13 10:44:53.250  1022  1731 I APM_AudioPolicyManager: setStreamVolumeIndex() stream 3, device 0x0002, index 0
+10-13 10:44:53.255  1022  1731 I APM_AudioPolicyManager: setVolumeIndexForAttributes: attributes={ Content type: AUDIO_CONTENT_TYPE_UNKNOWN Usage: AUDIO_USAGE_MEDIA Source: AUDIO_SOURCE_DEFAULT Flags: 0x0 Tags:  } index=0 device=0x2
+10-13 10:44:53.257  1022  1731 I APM_AudioPolicyManager: setStreamVolumeIndex() stream 3, device 0x40000000, index 5
+10-13 10:44:53.257  1022  1731 I APM_AudioPolicyManager: setVolumeIndexForAttributes: attributes={ Content type: AUDIO_CONTENT_TYPE_UNKNOWN Usage: AUDIO_USAGE_MEDIA Source: AUDIO_SOURCE_DEFAULT Flags: 0x0 Tags:  } index=5 device=0x40000000
+10-13 10:44:53.261  1022  2617 I APM_AudioPolicyManager: setStreamVolumeIndex() stream 10, device 0x0001, index 6
+10-13 10:44:53.262  1022  2617 I APM_AudioPolicyManager: setVolumeIndexForAttributes: attributes={ Content type: AUDIO_CONTENT_TYPE_UNKNOWN Usage: AUDIO_USAGE_ASSISTANCE_ACCESSIBILITY Source: AUDIO_SOURCE_DEFAULT Flags: 0x0 Tags:  } index=6 device=0x1
+10-13 10:44:53.263  1022  2617 I APM_AudioPolicyManager: setStreamVolumeIndex() stream 10, device 0x0002, index 1
+10-13 10:44:53.263  1022  2617 I APM_AudioPolicyManager: setVolumeIndexForAttributes: attributes={ Content type: AUDIO_CONTENT_TYPE_UNKNOWN Usage: AUDIO_USAGE_ASSISTANCE_ACCESSIBILITY Source: AUDIO_SOURCE_DEFAULT Flags: 0x0 Tags:  } index=1 device=0x2
+10-13 10:44:53.264  1022  2617 I APM_AudioPolicyManager: setStreamVolumeIndex() stream 10, device 0x40000000, index 6
+10-13 10:44:53.264  1022  2617 I APM_AudioPolicyManager: setVolumeIndexForAttributes: attributes={ Content type: AUDIO_CONTENT_TYPE_UNKNOWN Usage: AUDIO_USAGE_ASSISTANCE_ACCESSIBILITY Source: AUDIO_SOURCE_DEFAULT Flags: 0x0 Tags:  } index=6 device=0x40000000
+10-13 10:44:53.266  1022  1731 I APM_AudioPolicyManager: setStreamVolumeIndex() stream 11, device 0x0001, index 5
+10-13 10:44:53.266  1022  1731 I APM_AudioPolicyManager: setVolumeIndexForAttributes: attributes={ Content type: AUDIO_CONTENT_TYPE_SPEECH Usage: AUDIO_USAGE_ASSISTANT Source: AUDIO_SOURCE_DEFAULT Flags: 0x0 Tags:  } index=5 device=0x1
+10-13 10:44:53.267  1022  1731 I APM_AudioPolicyManager: setStreamVolumeIndex() stream 11, device 0x0002, index 0
+10-13 10:44:53.267  1022  1731 I APM_AudioPolicyManager: setVolumeIndexForAttributes: attributes={ Content type: AUDIO_CONTENT_TYPE_SPEECH Usage: AUDIO_USAGE_ASSISTANT Source: AUDIO_SOURCE_DEFAULT Flags: 0x0 Tags:  } index=0 device=0x2
+10-13 10:44:53.267  1022  1731 I APM_AudioPolicyManager: setStreamVolumeIndex() stream 11, device 0x40000000, index 5
+10-13 10:44:53.268  1022  1731 I APM_AudioPolicyManager: setVolumeIndexForAttributes: attributes={ Content type: AUDIO_CONTENT_TYPE_SPEECH Usage: AUDIO_USAGE_ASSISTANT Source: AUDIO_SOURCE_DEFAULT Flags: 0x0 Tags:  } index=5 device=0x40000000
+10-13 10:44:59.642  1022  1731 I APM_AudioPolicyManager: getOutputForAttrInt() device {AUDIO_DEVICE_OUT_EARPIECE, @:}, sampling rate 48000, format 0x1, channel mask 0x1, flags 0 stream AUDIO_STREAM_VOICE_CALL flagsEx 0
+10-13 10:44:59.642  1022  1731 I APM_AudioPolicyManager: getOutputForDevice() flags 0, forceMutingHaptic 1
+10-13 10:44:59.650  1022  1731 I APM_AudioPolicyManager: addOutput() 357
+10-13 10:44:59.653  1022  1731 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 1, index 1, device 0x1, volumeDb -58.000000, output 357 
+10-13 10:44:59.654  1022  1731 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 2, index 1, device 0x1, volumeDb -49.500000, output 357 
+10-13 10:44:59.655  1022  1731 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 4, index 8, device 0x1, volumeDb -13.000000, output 357 
+10-13 10:44:59.657  1022  1731 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 5, index 8, device 0x1, volumeDb -13.000000, output 357 
+10-13 10:44:59.658  1022  1731 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 6, index 0, device 0x1, volumeDb -758.000000, output 357 
+10-13 10:44:59.660  1022  1731 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 7, index 8, device 0x1, volumeDb -23.500000, output 357 
+10-13 10:44:59.661  1022  1731 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 8, index 0, device 0x1, volumeDb 0.000000, output 357 
+10-13 10:44:59.662  1022  1731 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 9, index 5, device 0x1, volumeDb 0.000000, output 357 
+10-13 10:44:59.663  1022  1731 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 10, index 8, device 0x1, volumeDb -23.500000, output 357 
+10-13 10:44:59.665  1022  1731 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 11, index 8, device 0x1, volumeDb -13.000000, output 357 
+10-13 10:44:59.667  1022  1731 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 12, index 11, device 0x1, volumeDb -10.928572, output 357 
+10-13 10:44:59.669  1022  1731 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 13, index 3, device 0x1, volumeDb -23.333334, output 357 
+10-13 10:44:59.670  1022  1731 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 20, index 0, device 0x1, volumeDb -758.000000, output 357 
+10-13 10:44:59.671  1022  1731 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 23, index 5, device 0x1, volumeDb 0.000000, output 357 
+10-13 10:44:59.673  1022  1731 I APM_AudioPolicyManager: getOutputForAttr() returns output 357 requestedPortId 0 selectedDeviceId 2 for port ID 561
+10-13 10:44:59.709  1022  1731 I APM_AudioPolicyManager: getNewOutputDevices selected devices AUDIO_DEVICE_NONE connectdeDevices(10003)
+10-13 10:44:59.712  1022  1731 I APM_AudioPolicyManager: getNewOutputDevices selected devices AUDIO_DEVICE_NONE connectdeDevices(10003)
+10-13 10:44:59.713  1022  1731 I APM_AudioPolicyManager: getNewOutputDevices selected devices AUDIO_DEVICE_NONE connectdeDevices(10003)
+10-13 10:44:59.714  1022  1731 I APM_AudioPolicyManager: getNewOutputDevices selected devices AUDIO_DEVICE_NONE connectdeDevices(10003)
+10-13 10:44:59.714  1022  1731 I APM_AudioPolicyManager: getNewOutputDevices selected devices AUDIO_DEVICE_NONE connectdeDevices(10003)
+10-13 10:44:59.715  1022  1731 I APM_AudioPolicyManager: getNewOutputDevices selected devices AUDIO_DEVICE_NONE connectdeDevices(10003)
+10-13 10:44:59.715  1022  1731 I APM_AudioPolicyManager: setOutputDevices changing device to AUDIO_DEVICE_NONE from {AUDIO_DEVICE_OUT_EARPIECE, @:}
+10-13 10:44:59.715  1022  1731 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 1, index 1, device 0x1, volumeDb -58.000000, output 357 
+10-13 10:44:59.715  1022  1731 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 2, index 1, device 0x1, volumeDb -49.500000, output 357 
+10-13 10:44:59.716  1022  1731 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 4, index 8, device 0x1, volumeDb -13.000000, output 357 
+10-13 10:44:59.716  1022  1731 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 5, index 8, device 0x1, volumeDb -13.000000, output 357 
+10-13 10:44:59.716  1022  1731 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 6, index 0, device 0x1, volumeDb -758.000000, output 357 
+10-13 10:44:59.716  1022  1731 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 7, index 8, device 0x1, volumeDb -23.500000, output 357 
+10-13 10:44:59.716  1022  1731 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 8, index 0, device 0x1, volumeDb 0.000000, output 357 
+10-13 10:44:59.716  1022  1731 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 9, index 5, device 0x1, volumeDb 0.000000, output 357 
+10-13 10:44:59.717  1022  1731 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 10, index 8, device 0x1, volumeDb -23.500000, output 357 
+10-13 10:44:59.718  1022  1731 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 11, index 8, device 0x1, volumeDb -13.000000, output 357 
+10-13 10:44:59.719  1022  1731 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 12, index 11, device 0x1, volumeDb -10.928572, output 357 
+10-13 10:44:59.719  1022  1731 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 13, index 3, device 0x1, volumeDb -23.333334, output 357 
+10-13 10:44:59.719  1022  1731 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 20, index 0, device 0x1, volumeDb -758.000000, output 357 
+10-13 10:44:59.719  1022  1731 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 23, index 5, device 0x1, volumeDb 0.000000, output 357 
+10-13 10:44:59.721  1022  7981 I APM_AudioPolicyManager: getNewOutputDevices selected devices AUDIO_DEVICE_NONE connectdeDevices(10003)
+10-13 10:44:59.722  1022  7981 I APM_AudioPolicyManager: getNewOutputDevices selected devices AUDIO_DEVICE_NONE connectdeDevices(10003)
+10-13 10:44:59.722  1022  7981 I APM_AudioPolicyManager: getNewOutputDevices selected devices AUDIO_DEVICE_NONE connectdeDevices(10003)
+10-13 10:44:59.723  1022  7981 I APM_AudioPolicyManager: getNewOutputDevices selected devices AUDIO_DEVICE_NONE connectdeDevices(10003)
+10-13 10:44:59.723  1022  7981 I APM_AudioPolicyManager: getNewOutputDevices selected devices AUDIO_DEVICE_NONE connectdeDevices(10003)
+10-13 10:44:59.723  1022  7981 I APM_AudioPolicyManager: getNewOutputDevices selected devices AUDIO_DEVICE_NONE connectdeDevices(10003)
+10-13 10:44:59.724  1022  7981 I APM_AudioPolicyManager: setOutputDevices changing device to AUDIO_DEVICE_NONE from {AUDIO_DEVICE_OUT_EARPIECE, @:}
+10-13 10:44:59.724  1022  7981 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 1, index 1, device 0x1, volumeDb -58.000000, output 357 
+10-13 10:44:59.724  1022  7981 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 2, index 1, device 0x1, volumeDb -49.500000, output 357 
+10-13 10:44:59.724  1022  7981 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 4, index 8, device 0x1, volumeDb -13.000000, output 357 
+10-13 10:44:59.725  1022  7981 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 5, index 8, device 0x1, volumeDb -13.000000, output 357 
+10-13 10:44:59.725  1022  7981 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 6, index 0, device 0x1, volumeDb -758.000000, output 357 
+10-13 10:44:59.725  1022  7981 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 7, index 8, device 0x1, volumeDb -23.500000, output 357 
+10-13 10:44:59.726  1022  7981 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 8, index 0, device 0x1, volumeDb 0.000000, output 357 
+10-13 10:44:59.726  1022  7981 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 9, index 5, device 0x1, volumeDb 0.000000, output 357 
+10-13 10:44:59.726  1022  7981 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 10, index 8, device 0x1, volumeDb -23.500000, output 357 
+10-13 10:44:59.727  1022  7981 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 11, index 8, device 0x1, volumeDb -13.000000, output 357 
+10-13 10:44:59.727  1022  7981 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 12, index 11, device 0x1, volumeDb -10.928572, output 357 
+10-13 10:44:59.727  1022  7981 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 13, index 3, device 0x1, volumeDb -23.333334, output 357 
+10-13 10:44:59.727  1022  7981 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 20, index 0, device 0x1, volumeDb -758.000000, output 357 
+10-13 10:44:59.727  1022  7981 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 23, index 5, device 0x1, volumeDb 0.000000, output 357 
+10-13 10:44:59.729  1022  1731 I APM_AudioPolicyManager: setForceUse() usage 7, config 0, mPhoneState 0 mA2dpSuspended 0
+10-13 10:44:59.733  1022  1731 W APM_AudioPolicyManager: setForceUse() no need set force cfg 0 for usage 7, pre cfg 0
+10-13 10:44:59.740  1022 23309 I APM_AudioPolicyManager: setPhoneState() state 0->3
+10-13 10:44:59.756  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 20, index 0, device 0x2, volumeDb -758.000000, output 13 
+10-13 10:44:59.757  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 6, index 0, device 0x2, volumeDb -758.000000, output 13 
+10-13 10:44:59.768  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 11, index 0, device 0x2, volumeDb -758.000000, output 13 
+10-13 10:44:59.770  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 12, index 0, device 0x2, volumeDb -758.000000, output 13 
+10-13 10:44:59.771  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 20, index 0, device 0x2, volumeDb -758.000000, output 13 
+10-13 10:44:59.771  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 6, index 0, device 0x2, volumeDb -758.000000, output 13 
+10-13 10:44:59.772  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 11, index 8, device 0x2, volumeDb -20.333334, output 13 
+10-13 10:44:59.773  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 12, index 11, device 0x2, volumeDb -20.333334, output 13 
+10-13 10:44:59.774  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 10, index 0, device 0x2, volumeDb -758.000000, output 13 
+10-13 10:44:59.776  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 2, index 0, device 0x2, volumeDb -758.000000, output 13 
+10-13 10:44:59.777  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 10, index 8, device 0x2, volumeDb -26.333334, output 13 
+10-13 10:44:59.778  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 2, index 1, device 0x2, volumeDb -43.000000, output 13 
+10-13 10:44:59.779  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 20, index 0, device 0x2, volumeDb -758.000000, output 21 
+10-13 10:44:59.779  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 6, index 0, device 0x2, volumeDb -758.000000, output 21 
+10-13 10:44:59.780  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 11, index 0, device 0x2, volumeDb -758.000000, output 21 
+10-13 10:44:59.781  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 12, index 0, device 0x2, volumeDb -758.000000, output 21 
+10-13 10:44:59.782  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 20, index 0, device 0x2, volumeDb -758.000000, output 21 
+10-13 10:44:59.783  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 6, index 0, device 0x2, volumeDb -758.000000, output 21 
+10-13 10:44:59.784  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 11, index 8, device 0x2, volumeDb -20.333334, output 21 
+10-13 10:44:59.784  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 12, index 11, device 0x2, volumeDb -20.333334, output 21 
+10-13 10:44:59.786  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 10, index 0, device 0x2, volumeDb -758.000000, output 21 
+10-13 10:44:59.787  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 2, index 0, device 0x2, volumeDb -758.000000, output 21 
+10-13 10:44:59.788  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 10, index 8, device 0x2, volumeDb -26.333334, output 21 
+10-13 10:44:59.789  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 2, index 1, device 0x2, volumeDb -43.000000, output 21 
+10-13 10:44:59.789  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 20, index 0, device 0x2, volumeDb -758.000000, output 29 
+10-13 10:44:59.790  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 6, index 0, device 0x2, volumeDb -758.000000, output 29 
+10-13 10:44:59.791  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 11, index 0, device 0x2, volumeDb -758.000000, output 29 
+10-13 10:44:59.792  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 12, index 0, device 0x2, volumeDb -758.000000, output 29 
+10-13 10:44:59.793  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 20, index 0, device 0x2, volumeDb -758.000000, output 29 
+10-13 10:44:59.793  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 6, index 0, device 0x2, volumeDb -758.000000, output 29 
+10-13 10:44:59.793  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 11, index 8, device 0x2, volumeDb -20.333334, output 29 
+10-13 10:44:59.793  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 12, index 11, device 0x2, volumeDb -20.333334, output 29 
+10-13 10:44:59.796  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 10, index 0, device 0x2, volumeDb -758.000000, output 29 
+10-13 10:44:59.797  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 2, index 0, device 0x2, volumeDb -758.000000, output 29 
+10-13 10:44:59.797  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 10, index 8, device 0x2, volumeDb -26.333334, output 29 
+10-13 10:44:59.797  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 2, index 1, device 0x2, volumeDb -43.000000, output 29 
+10-13 10:44:59.798  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 20, index 0, device 0x10000, volumeDb 0.000000, output 61 
+10-13 10:44:59.798  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 6, index 0, device 0x10000, volumeDb 0.000000, output 61 
+10-13 10:44:59.801  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 11, index 0, device 0x10000, volumeDb 0.000000, output 61 
+10-13 10:44:59.801  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 12, index 0, device 0x10000, volumeDb 0.000000, output 61 
+10-13 10:44:59.802  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 20, index 0, device 0x2, volumeDb -758.000000, output 61 
+10-13 10:44:59.802  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 6, index 0, device 0x2, volumeDb -758.000000, output 61 
+10-13 10:44:59.802  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 11, index 8, device 0x2, volumeDb -20.333334, output 61 
+10-13 10:44:59.803  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 12, index 11, device 0x2, volumeDb -20.333334, output 61 
+10-13 10:44:59.803  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 10, index 0, device 0x10000, volumeDb 0.000000, output 61 
+10-13 10:44:59.803  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 2, index 0, device 0x10000, volumeDb 0.000000, output 61 
+10-13 10:44:59.804  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 10, index 8, device 0x2, volumeDb -26.333334, output 61 
+10-13 10:44:59.804  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 2, index 1, device 0x2, volumeDb -43.000000, output 61 
+10-13 10:44:59.805  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 20, index 0, device 0x10000, volumeDb 0.000000, output 77 
+10-13 10:44:59.805  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 6, index 0, device 0x10000, volumeDb 0.000000, output 77 
+10-13 10:44:59.805  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 11, index 0, device 0x10000, volumeDb 0.000000, output 77 
+10-13 10:44:59.805  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 12, index 0, device 0x10000, volumeDb 0.000000, output 77 
+10-13 10:44:59.806  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 20, index 0, device 0x2, volumeDb -758.000000, output 77 
+10-13 10:44:59.806  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 6, index 0, device 0x2, volumeDb -758.000000, output 77 
+10-13 10:44:59.806  1022 23309 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 11, index 8, device 0x2, volumeDb -20.333334, output 77 
+10-13 10:45:00.001  1022  1731 I APM_AudioPolicyManager: setStreamVolumeIndex() stream 3, device 0x0001, index 5
+10-13 10:45:00.001  1022  1731 I APM_AudioPolicyManager: setVolumeIndexForAttributes: attributes={ Content type: AUDIO_CONTENT_TYPE_UNKNOWN Usage: AUDIO_USAGE_MEDIA Source: AUDIO_SOURCE_DEFAULT Flags: 0x0 Tags:  } index=5 device=0x1
+10-13 10:45:00.005  1022  1731 I APM_AudioPolicyManager: setStreamVolumeIndex() stream 3, device 0x0002, index 0
+10-13 10:45:00.011  1022  1731 I APM_AudioPolicyManager: setVolumeIndexForAttributes: attributes={ Content type: AUDIO_CONTENT_TYPE_UNKNOWN Usage: AUDIO_USAGE_MEDIA Source: AUDIO_SOURCE_DEFAULT Flags: 0x0 Tags:  } index=0 device=0x2
+10-13 10:45:00.011  1022  1731 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 6, index 0, device 0x2, volumeDb -758.000000, output 13 
+10-13 10:45:00.012  1022  1731 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 6, index 0, device 0x2, volumeDb -758.000000, output 21 
+10-13 10:45:00.014  1022  1731 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 6, index 0, device 0x2, volumeDb -758.000000, output 29 
+10-13 10:45:00.015  1022  1731 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 6, index 0, device 0x2, volumeDb -758.000000, output 357 
+10-13 10:45:00.016  1022 31649 I APM_AudioPolicyManager: setStreamVolumeIndex() stream 3, device 0x40000000, index 5
+10-13 10:45:00.016  1022 31649 I APM_AudioPolicyManager: setVolumeIndexForAttributes: attributes={ Content type: AUDIO_CONTENT_TYPE_UNKNOWN Usage: AUDIO_USAGE_MEDIA Source: AUDIO_SOURCE_DEFAULT Flags: 0x0 Tags:  } index=5 device=0x40000000
+10-13 10:45:00.026  1022  1731 I APM_AudioPolicyManager: setStreamVolumeIndex() stream 10, device 0x0001, index 6
+10-13 10:45:00.026  1022  1731 I APM_AudioPolicyManager: setVolumeIndexForAttributes: attributes={ Content type: AUDIO_CONTENT_TYPE_UNKNOWN Usage: AUDIO_USAGE_ASSISTANCE_ACCESSIBILITY Source: AUDIO_SOURCE_DEFAULT Flags: 0x0 Tags:  } index=6 device=0x1
+10-13 10:45:00.027  1022  2616 I APM_AudioPolicyManager: setStreamVolumeIndex() stream 10, device 0x0002, index 1
+10-13 10:45:00.027  1022  2616 I APM_AudioPolicyManager: setVolumeIndexForAttributes: attributes={ Content type: AUDIO_CONTENT_TYPE_UNKNOWN Usage: AUDIO_USAGE_ASSISTANCE_ACCESSIBILITY Source: AUDIO_SOURCE_DEFAULT Flags: 0x0 Tags:  } index=1 device=0x2
+10-13 10:45:00.027  1022  2616 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 1, index 1, device 0x2, volumeDb -58.000000, output 13 
+10-13 10:45:00.027  1022  2616 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 1, index 1, device 0x2, volumeDb -58.000000, output 21 
+10-13 10:45:00.028  1022  2616 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 1, index 1, device 0x2, volumeDb -58.000000, output 29 
+10-13 10:45:00.028  1022  2616 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 1, index 1, device 0x2, volumeDb -58.000000, output 357 
+10-13 10:45:00.029  1022  2616 I APM_AudioPolicyManager: setStreamVolumeIndex() stream 10, device 0x40000000, index 6
+10-13 10:45:00.029  1022  2616 I APM_AudioPolicyManager: setVolumeIndexForAttributes: attributes={ Content type: AUDIO_CONTENT_TYPE_UNKNOWN Usage: AUDIO_USAGE_ASSISTANCE_ACCESSIBILITY Source: AUDIO_SOURCE_DEFAULT Flags: 0x0 Tags:  } index=6 device=0x40000000
+10-13 10:45:00.031  1022  2616 I APM_AudioPolicyManager: setStreamVolumeIndex() stream 11, device 0x0001, index 5
+10-13 10:45:00.031  1022  2616 I APM_AudioPolicyManager: setVolumeIndexForAttributes: attributes={ Content type: AUDIO_CONTENT_TYPE_SPEECH Usage: AUDIO_USAGE_ASSISTANT Source: AUDIO_SOURCE_DEFAULT Flags: 0x0 Tags:  } index=5 device=0x1
+10-13 10:45:00.032  1022  2616 I APM_AudioPolicyManager: setStreamVolumeIndex() stream 11, device 0x0002, index 0
+10-13 10:45:00.032  1022  2616 I APM_AudioPolicyManager: setVolumeIndexForAttributes: attributes={ Content type: AUDIO_CONTENT_TYPE_SPEECH Usage: AUDIO_USAGE_ASSISTANT Source: AUDIO_SOURCE_DEFAULT Flags: 0x0 Tags:  } index=0 device=0x2
+10-13 10:45:00.032  1022  2616 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 20, index 0, device 0x2, volumeDb -758.000000, output 13 
+10-13 10:45:00.032  1022  2616 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 20, index 0, device 0x2, volumeDb -758.000000, output 21 
+10-13 10:45:00.033  1022  2616 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 20, index 0, device 0x2, volumeDb -758.000000, output 29 
+10-13 10:45:00.033  1022  2616 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 20, index 0, device 0x2, volumeDb -758.000000, output 357 
+10-13 10:45:00.033  1022  2616 I APM_AudioPolicyManager: setStreamVolumeIndex() stream 11, device 0x40000000, index 5
+10-13 10:45:00.033  1022  2616 I APM_AudioPolicyManager: setVolumeIndexForAttributes: attributes={ Content type: AUDIO_CONTENT_TYPE_SPEECH Usage: AUDIO_USAGE_ASSISTANT Source: AUDIO_SOURCE_DEFAULT Flags: 0x0 Tags:  } index=5 device=0x40000000
+10-13 10:45:00.037  1022  1731 I APM_AudioPolicyManager: setStreamVolumeIndex() stream 0, device 0x0002, index 3
+10-13 10:45:00.037  1022  1731 I APM_AudioPolicyManager: setVolumeIndexForAttributes: attributes={ Content type: AUDIO_CONTENT_TYPE_UNKNOWN Usage: AUDIO_USAGE_VOICE_COMMUNICATION Source: AUDIO_SOURCE_DEFAULT Flags: 0x0 Tags:  } index=3 device=0x2
+10-13 10:45:00.037  1022  1731 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 13, index 3, device 0x2, volumeDb -23.333334, output 13 
+10-13 10:45:00.085  1022  1731 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 13, index 3, device 0x2, volumeDb -23.333334, output 21 
+10-13 10:45:00.088  1022  1731 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 13, index 3, device 0x2, volumeDb -23.333334, output 29 
+10-13 10:45:00.088  1022  1731 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 13, index 3, device 0x2, volumeDb -23.333334, output 357 
+10-13 10:45:00.097  1022 12512 I APM_AudioPolicyManager: setStreamVolumeIndex() stream 8, device 0x0002, index 3
+10-13 10:45:00.097  1022 12512 I APM_AudioPolicyManager: setVolumeIndexForAttributes: attributes={ Content type: AUDIO_CONTENT_TYPE_UNKNOWN Usage: AUDIO_USAGE_VOICE_COMMUNICATION_SIGNALLING Source: AUDIO_SOURCE_DEFAULT Flags: 0x0 Tags:  } index=3 device=0x2
+10-13 10:45:00.098  1022 12512 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 4, index 3, device 0x2, volumeDb -24.000000, output 13 
+10-13 10:45:00.099  1022 12512 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 4, index 3, device 0x2, volumeDb -24.000000, output 21 
+10-13 10:45:00.099  1022 12512 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 4, index 3, device 0x2, volumeDb -24.000000, output 29 
+10-13 10:45:00.102  1022 12512 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 4, index 3, device 0x2, volumeDb -24.000000, output 357 
+10-13 10:45:00.109  1022 12512 I APM_AudioPolicyManager: setForceUse() usage 7, config 0, mPhoneState 3 mA2dpSuspended 0
+10-13 10:45:00.112  1022 12512 W APM_AudioPolicyManager: setForceUse() no need set force cfg 0 for usage 7, pre cfg 0
+10-13 10:45:00.114  1022  6103 I APM_AudioPolicyManager: setStreamVolumeIndex() stream 8, device 0x0001, index 12
+10-13 10:45:00.114  1022  6103 I APM_AudioPolicyManager: setVolumeIndexForAttributes: attributes={ Content type: AUDIO_CONTENT_TYPE_UNKNOWN Usage: AUDIO_USAGE_VOICE_COMMUNICATION_SIGNALLING Source: AUDIO_SOURCE_DEFAULT Flags: 0x0 Tags:  } index=12 device=0x1
+10-13 10:45:00.117  1022  1022 I APM_AudioPolicyManager: setStreamVolumeIndex() stream 8, device 0x0002, index 3
+10-13 10:45:00.117  1022  1022 I APM_AudioPolicyManager: setVolumeIndexForAttributes: attributes={ Content type: AUDIO_CONTENT_TYPE_UNKNOWN Usage: AUDIO_USAGE_VOICE_COMMUNICATION_SIGNALLING Source: AUDIO_SOURCE_DEFAULT Flags: 0x0 Tags:  } index=3 device=0x2
+10-13 10:45:00.117  1022  1022 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 4, index 3, device 0x2, volumeDb -24.000000, output 13 
+10-13 10:45:00.118  1022  1022 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 4, index 3, device 0x2, volumeDb -24.000000, output 21 
+10-13 10:45:00.118  1022  1022 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 4, index 3, device 0x2, volumeDb -24.000000, output 29 
+10-13 10:45:00.119  1022  1022 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 4, index 3, device 0x2, volumeDb -24.000000, output 357 
+10-13 10:45:00.123  1022 15241 I APM_AudioPolicyManager: setStreamVolumeIndex() stream 8, device 0x40000000, index 12
+10-13 10:45:00.123  1022 15241 I APM_AudioPolicyManager: setVolumeIndexForAttributes: attributes={ Content type: AUDIO_CONTENT_TYPE_UNKNOWN Usage: AUDIO_USAGE_VOICE_COMMUNICATION_SIGNALLING Source: AUDIO_SOURCE_DEFAULT Flags: 0x0 Tags:  } index=12 device=0x40000000
+10-13 10:45:00.127  1022 15241 I APM_AudioPolicyManager: setStreamVolumeIndex() stream 10, device 0x0001, index 6
+10-13 10:45:00.127  1022 15241 I APM_AudioPolicyManager: setVolumeIndexForAttributes: attributes={ Content type: AUDIO_CONTENT_TYPE_UNKNOWN Usage: AUDIO_USAGE_ASSISTANCE_ACCESSIBILITY Source: AUDIO_SOURCE_DEFAULT Flags: 0x0 Tags:  } index=6 device=0x1
+10-13 10:45:00.130  1022 15241 I APM_AudioPolicyManager: setStreamVolumeIndex() stream 10, device 0x0002, index 1
+10-13 10:45:00.130  1022 15241 I APM_AudioPolicyManager: setVolumeIndexForAttributes: attributes={ Content type: AUDIO_CONTENT_TYPE_UNKNOWN Usage: AUDIO_USAGE_ASSISTANCE_ACCESSIBILITY Source: AUDIO_SOURCE_DEFAULT Flags: 0x0 Tags:  } index=1 device=0x2
+10-13 10:45:00.130  1022 15241 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 1, index 1, device 0x2, volumeDb -58.000000, output 13 
+10-13 10:45:00.131  1022 15241 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 1, index 1, device 0x2, volumeDb -58.000000, output 21 
+10-13 10:45:00.131  1022 15241 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 1, index 1, device 0x2, volumeDb -58.000000, output 29 
+10-13 10:45:00.132  1022 15241 I APM_AudioPolicyManager: checkAndSetVolume volumeSource 1, index 1, device 0x2, volumeDb -58.000000, output 357 
+10-13 10:45:00.135  1022  6103 I APM_AudioPolicyManager: setStreamVolumeIndex() stream 10, device 0x40000000, index 6
+10-13 10:45:00.136  1022  6103 I APM_AudioPolicyManager: setVolumeIndexForAttributes: attributes={ Content type: AUDIO_CONTENT_TYPE_UNKNOWN Usage: AUDIO_USAGE_ASSISTANCE_ACCESSIBILITY Source: AUDIO_SOURCE_DEFAULT Flags: 0x0 Tags:  } index=6 device=0x40000000
+10-13 10:45:00.140  1022  6103 I APM_AudioPolicyManager: setForceUse() usage 7, config 0, mPhoneState 3 mA2dpSuspended 0
+10-13 10:45:00.143  1022  6103 W APM_AudioPolicyManager: setForceUse() no need set force cfg 0 for usage 7, pre cfg 0
+10-13 10:45:00.150  1022 14730 I APM_AudioPolicyManager: setForceUse() usage 7, config 0, mPhoneState 3 mA2dpSuspended 0
+10-13 10:45:00.153  1022 14730 W APM_AudioPolicyManager: setForceUse() no need set force cfg 0 for usage 7, pre cfg 0
