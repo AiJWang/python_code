@@ -8,11 +8,12 @@ import json
 
 
 # 链接数据库
+from util.yamlUtil import YmlTuil
+
+
 class mongoUtil:
-    __mongoUrlList = (
-        'mongodb://poros_test:6nKBKbCdBxizNRQJ@s-2ze804aac801b914-pub.mongodb.rds.aliyuncs.com:3717/jinquan',
-        'mongodb://ugc:aUWjzhRkIk@s-2ze804aac801b914-pub.mongodb.rds.aliyuncs.com:3717,s-2zeaffa80a551f74-pub.mongodb.rds.aliyuncs.com:3717/ugc',
-        'mongodb://couple_service:aUWjzhRkIk@s-2ze804aac801b914-pub.mongodb.rds.aliyuncs.com:3717/?retryReads=false&retryWrites=false&authSource=couple')
+    mongourl=YmlTuil().readYml(path='../../config.yml').get('mongourl',None)
+    __mongoUrlList = (mongourl.get('jinquan'),mongourl.get('ugc'),mongourl.get('couple'))
 
     def connectMongo(self, urlIndex, db, table):
         print(self.__mongoUrlList[urlIndex])
@@ -42,6 +43,7 @@ class mongoUtil:
     def test1(self):
         cc=self.connectMongo(2,'couple','romanticlist_point_reward')
         res=cc.find({'male_user_id':'1413125201'})
+        print(type(res))
         for i in res:
             print(i)
         # mc = self.connectMongo1('s-2ze804aac801b914-pub.mongodb.rds.aliyuncs.com',
