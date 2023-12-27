@@ -3,6 +3,7 @@ import json
 
 import requests
 from bson import ObjectId
+from pymongo import MongoClient
 
 from 测试脚本.personal.mongconnect import mongoUtil
 
@@ -49,7 +50,7 @@ huoxing={'userid':'1387058641'}
 #评价数据插入
 def insert_mx_comment():
     mx_comment = mongoUtil.connectMongo(1, 'ugc', 'mx_comment')
-    query={'group_leader_id': '1002985161'}
+    query={'group_leader_id': '954312781','period_id':'20231204-20231217'}
     result = mongoUtil.queryData(mx_comment, query)
     data = dict(result[0])
     now=datetime.datetime.now()
@@ -59,9 +60,9 @@ def insert_mx_comment():
         data.pop('_id')
         data.pop('create_time')
         data.pop('update_time')
-        data['family_id'] = taiyang['familyid']
-        data['group_leader_id'] = '943405281'
-        data['union_id'] = taiyang['unionid']
+        #data['family_id'] = taiyang['familyid']
+        data['group_leader_id'] = '954312781'
+        #data['union_id'] = taiyang['unionid']
         data['create_time'] = now
         data['update_time'] = now
         data['stars'] = 3
@@ -125,8 +126,7 @@ def update_task():
 
 #update_daoshuN(29,'6445ec3df7420bcf9f0c41b1')
 
+if __name__=='__main__':
+    insert_mx_comment()
 
-#insert_mx_comment()
 
-
-update_task()

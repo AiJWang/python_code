@@ -6,7 +6,7 @@ def update_create_time(self):
     couple_level_relation = self.connectMongo(0, 'jinquan', 'couple_level_relation')
     query = {'male_user_id': {'$in': ['1074951301', '1381183141']}, 'progress_status': 'female'}
     # 获取昨天的当前时刻
-    time = datetime.datetime.now() - datetime.timedelta(hours=23, minutes=59, seconds=59)
+    time = datetime.datetime.now() - datetime.timedelta(days=7,hours=23, minutes=59, seconds=59)
     str_time = time.strftime('%Y-%m-%d %H:%M:%S')
     print(str_time, type(str_time))
     update = {'$set': {'create_time': str_time}}
