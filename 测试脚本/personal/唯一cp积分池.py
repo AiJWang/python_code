@@ -5,12 +5,12 @@ import redis
 import requests
 from pymongo import MongoClient
 
-#from 测试脚本.personal.mongconnect import mongoUtil
+from 测试脚本.personal.mongconnect import mongoUtil
 from 测试脚本.personal.redisUtil import RedisUtil
 
-#mongoUtil = mongoUtil()
+mongoUtil = mongoUtil()
 
-#redis_db1=RedisUtil().connect_redis()
+redis_db1=RedisUtil().connect_redis()
 
 '''
 说明：两个b端组cp，唯一ccp积分池表 jackpot  用的是一条记录，区分了送戒指人的积分池积分和被送戒指人的积分池积分
@@ -22,21 +22,17 @@ from 测试脚本.personal.redisUtil import RedisUtil
 2. set CACHE:DAILY:INTERACTION:TIME:2024-01-18:1387212431_1464897431 10000 （设置单日互动值）
 
 '''
-redis_db1=redis.Redis(host='r-2zer3tg1gl0ao7wssspd.redis.rds.aliyuncs.com',password='lFofuO80V0',db=1)
-
-mongoUtil=MongoClient('mongodb://poros_test:6nKBKbCdBxizNRQJ@s-2ze804aac801b914-pub.mongodb.rds.aliyuncs.com:3717/jinquan')
 
 #唯一cp积分池
 def get_jackpoint(uid):
-    # jackpot = mongoUtil.connectMongo('jinquan', 'jackpot')
-    jackpot = mongoUtil['jinquan']['jackpot']
+    jackpot = mongoUtil.connectMongo('jinquan', 'jackpot')
     result=jackpot.find({'receiver_id':uid,'status':'PENDING'})[0]
     print('b收礼人积分池数量: ',result.get('score'))
     return result.get('_id')
 
 #唯一cp积分池 更新时间
 def update_jackpoint_create_time(uid,value=None):
-    jackpot = mongoUtil['jinquan']['jackpot']
+    jackpot = mongoUtil.connectMongo('jinquan', 'jackpot')
     if value:
         result = jackpot.update_many({'receiver_id': uid, 'status': 'PENDING'},
                                      {'$set': value})
@@ -93,7 +89,7 @@ def del_tanchaung(uid):
 def settle_cp(uid,femaluid):
     uid_key = f'{uid}_{femaluid}' if uid < femaluid else f'{femaluid}_{uid}'
     redis_db1.delete(f'jackpot:task:{uid_key}:2024-01-20')
-    jackpot_daily_task = mongoUtil['jinquan']['jackpot_daily_task']
+    jackpot_daily_task = mongoUtil.connectMongo('jinquan', 'jackpot_daily_task')
     jackpot_daily_task.delete_many({'receiver_id':femaluid,'date':datetime.datetime(2024, 1, 20, 00, 00, 00, 000000)})
     url=f'http://metis-test.diffusenetwork.com/test_tools/settle_jackpot_task?jackpot_id={get_jackpoint(femaluid)}'
     result=requests.request(method='get',url=url)
