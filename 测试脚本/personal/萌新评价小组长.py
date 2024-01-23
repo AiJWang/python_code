@@ -11,7 +11,7 @@ mongoUtil=mongoUtil()
 
 #查询联盟下小组长人数
 def get_leader_member(unionid):
-    family = mongoUtil.connectMongo(0, 'jinquan', 'family')
+    family = mongoUtil.connectMongo('jinquan', 'family')
     queryFamily = {'union_id': unionid}
     familyResultList = family.find(queryFamily)
     familyList = list()
@@ -20,7 +20,7 @@ def get_leader_member(unionid):
     print(familyList)
     queryleader = {'$and': [{'family_id': {'$in': familyList}}, {'deleted': 0}, {'is_leader': True}]}
 
-    family_group_member = mongoUtil.connectMongo(0, 'jinquan', 'family_group_member')
+    family_group_member = mongoUtil.connectMongo('jinquan', 'family_group_member')
     result1 = family_group_member.find(queryleader)
     res = list(result1)
     for i in res:
@@ -32,7 +32,7 @@ def get_score(element):
     return element['union_ranking']
 
 def query_union_leader_score(unionid,reverse):
-    mx_comment = mongoUtil.connectMongo(1, 'ugc', 'mx_comment_stat')
+    mx_comment = mongoUtil.connectMongo('ugc', 'mx_comment_stat')
     query = {'union_id':unionid,'date':datetime.datetime.today().strftime('%Y-%m-%d')}
 
     result = mongoUtil.queryData(mx_comment, query)
@@ -49,7 +49,7 @@ maomao={'userid':'1381571261'}
 huoxing={'userid':'1387058641'}
 #评价数据插入
 def insert_mx_comment():
-    mx_comment = mongoUtil.connectMongo(1, 'ugc', 'mx_comment')
+    mx_comment = mongoUtil.connectMongo('ugc', 'mx_comment')
     query={'group_leader_id': '954312781','period_id':'20231204-20231217'}
     result = mongoUtil.queryData(mx_comment, query)
     data = dict(result[0])
@@ -69,7 +69,7 @@ def insert_mx_comment():
         mongoUtil.insertData(mx_comment, data)
 
 def update_topN(n,union_id):
-    mx_comment = mongoUtil.connectMongo(1, 'ugc', 'mx_comment')
+    mx_comment = mongoUtil.connectMongo('ugc', 'mx_comment')
     res=query_union_leader_score(union_id,False)
     for i in range(n):
         query = {'group_leader_id': res[i]['group_leader_id']}
@@ -79,11 +79,11 @@ def update_topN(n,union_id):
         mongoUtil.insertData(mx_comment, result)
     #删除之前的数据
     remove_info={'union_id': union_id, 'date': '2023-10-26', 'union_ranking': {'$lte': n}}
-    mx_comment_stat = mongoUtil.connectMongo(1, 'ugc', 'mx_comment_stat')
+    mx_comment_stat = mongoUtil.connectMongo('ugc', 'mx_comment_stat')
     mx_comment_stat.delete_many(remove_info)
 
 def update_daoshuN(n,union_id):
-    mx_comment = mongoUtil.connectMongo(1, 'ugc', 'mx_comment')
+    mx_comment = mongoUtil.connectMongo('ugc', 'mx_comment')
     res=query_union_leader_score(union_id,False)
     for i in range(n):
         leader_id=res[i]['group_leader_id']
@@ -96,7 +96,7 @@ def update_daoshuN(n,union_id):
 #更新任务
 def update_task():
     #删除任务 '1379982171'
-    theme_task = mongoUtil.connectMongo(0, 'jinquan', 'theme_task')
+    theme_task = mongoUtil.connectMongo('jinquan', 'theme_task')
     query={'task_type':'family_group_leader_mx_comment','user_id':{'$in':['1379982171','943405281','1381571261']},'deleted':0}
     update = {'$set': {'deleted': 1}}
     theme_task.update_many(query,update)

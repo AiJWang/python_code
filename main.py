@@ -29,7 +29,7 @@ if __name__ == '__main__':
     assert abs(+323.0-323.0)<1
 
     print(100152190-100102195.0)
-    # print(u'\\u0e4f\\u032f\\u0361\\u0e4f'.decode('unicode-escape'))
+    #print(u'\\u0e4f\\u032f\\u0361\\u0e4f'.decode('unicode-escape'))
     # text = r'\u6210\u529f'
     # ccc = bytes(text, 'utf-8').decode('unicode-escape')
     # print(ccc)
@@ -39,3 +39,4 @@ if __name__ == '__main__':
     # s={'zhangsan':12}
     # aa.playlol(zhangsan='2sss')
     # See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    print(bytes('\\u767b\\u5f55\\u5931\\u6548\\uff0c\\u8bf7\\u91cd\\u65b0\\u767b\\u5f55','utf-8').decode('unicode-escape'))

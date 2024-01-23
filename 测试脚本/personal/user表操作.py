@@ -4,7 +4,7 @@ import datetime
 from 测试脚本.personal.mongconnect import mongoUtil
 
 mongoUtil=mongoUtil()
-user = mongoUtil.connectMongo(0, 'jinquan', 'user')
+user = mongoUtil.connectMongo('jinquan', 'user')
 
 
 def update_user_info():

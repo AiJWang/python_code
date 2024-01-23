@@ -5,9 +5,9 @@ import requests
 
 from util.yamlUtil import YmlTuil
 
-yan = {'浪漫清单': 'sgfh', '唯一cp维持实验': 'uni_cp_mt', '白银cp': 'silver_cp', '首日增加cp铃实验': 'leave_room_cp_bell'}
+yan = {'浪漫清单': 'sgfh', '唯一cp维持实验': 'uni_cp_mt', '白银cp': 'silver_cp', '首日增加cp铃实验': 'leave_room_cp_bell','延迟逼客':'room_interactive_value','女用户展示照片C端转化实验':'jdus','唯一cp积分池':'interaction_time_test','新女嘉宾kpi':'new_voice_female'}
 
-
+#分桶
 def getBucket(uid, group_num=0):
     if not group_num:
         group_num = 30
@@ -100,8 +100,8 @@ def del_v3(*args, **kwargs):
 
 
 if __name__ == '__main__':
-    print(getBucket("1465451231" + yan['浪漫清单'], 100))
-    print(getBucket("1465369721" + yan['白银cp'], 100))
+    print(getBucket("1509039221" + yan['唯一cp积分池'], 100))
+
     #register()
     # comman_params = {'version': '2.0.4.9', }
     # set_info(arg)

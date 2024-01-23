@@ -13,12 +13,10 @@ from util.yamlUtil import YmlTuil
 
 class mongoUtil:
     mongourl=YmlTuil().readYml(path='../../config.yml').get('mongourl',None)
-    __mongoUrlList = (mongourl.get('jinquan'),mongourl.get('ugc'),mongourl.get('couple'))
+    __mongoUrlList=tuple(mongourl.values())
 
-    def connectMongo(self, urlIndex, db, table):
-        print(self.__mongoUrlList[urlIndex])
-        return MongoClient(self.__mongoUrlList[urlIndex])[db][table]
-
+    def connectMongo(self, db, table):
+        return MongoClient(self.mongourl.get(db))[db][table]
 
     def querytest08(self):
         collection = self.connectMongo(0, 'jinquan', 'user')
@@ -90,5 +88,6 @@ class mongoUtil:
 
 if __name__ == '__main__':
     mm = mongoUtil()
-
-    mm.test1()
+    user=mm.connectMongo(0,'jinquan','user')
+    for i in user.find({'_id':'1452460951'}):
+        print(i)

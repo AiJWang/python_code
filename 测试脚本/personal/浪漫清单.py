@@ -62,17 +62,17 @@ const = {
 level_config={'lv3':'1局五子棋'}
 token='23eaa43e-84a8-46af-aeb8-8ea202309f99'
 
-romantic_list_v2_task = mongoUtil.connectMongo(2, database, 'romantic_list_v2_task')
+romantic_list_v2_task = mongoUtil.connectMongo(database, 'romantic_list_v2_task')
 
 def get_user_token(uid):
-    user_session = mongoUtil.connectMongo(0, 'jinquan', 'user_session')
+    user_session = mongoUtil.connectMongo('jinquan', 'user_session')
     res=user_session.find_one({'user_id':uid,'deleted':0})
     return res['session_id']
 
 
 
 def get_romanticlist_point_reward(query):
-    romanticlist_point_detail = mongoUtil.connectMongo(2, database, 'romanticlist_point_detail')
+    romanticlist_point_detail = mongoUtil.connectMongo(database, 'romanticlist_point_detail')
 
     now = datetime.datetime.now()
     update = {'$set': {'create_time': now, 'update_time': now}}
@@ -81,7 +81,7 @@ def get_romanticlist_point_reward(query):
 
 
 def finish_lv3(b_user_id='1449736451',c_user_id='1451816241'):
-    query = {'cp_unique_id': {'$in':[b_user_id+'_'+c_user_id,c_user_id+'_'+b_user_id]},'deleted':0}
+    query = {'cp_unique_id': f'{b_user_id}_{c_user_id}' if b_user_id<c_user_id else f'{c_user_id}_{b_user_id}','deleted':0}
     res1 = romantic_list_v2_task.find(query)
     for i in res1:
         print('lv33  ---')
@@ -100,7 +100,7 @@ def finish_lv3(b_user_id='1449736451',c_user_id='1451816241'):
 # c3c：1449736451    貓貓：1452460951    火星：1406867451   水星：1452968231
 # 新浪漫清单---解鎖lv5
 def finish_lv5(b_user_id='1449736451',c_user_id='1451816241'):
-    query = {'cp_unique_id': {'$in':[b_user_id+'_'+c_user_id,c_user_id+'_'+b_user_id]},'deleted':0}
+    query = {'cp_unique_id': f'{b_user_id}_{c_user_id}' if b_user_id<c_user_id else f'{c_user_id}_{b_user_id}','deleted':0}
     res = romantic_list_v2_task.find(query)[0]
     event_type_stat = res['event_type_stat']
     print(event_type_stat)
@@ -116,7 +116,7 @@ def finish_lv5(b_user_id='1449736451',c_user_id='1451816241'):
 
 
 def finish_lv7(b_user_id='1449736451',c_user_id='1451816241'):
-    query = {'cp_unique_id': {'$in':[b_user_id+'_'+c_user_id,c_user_id+'_'+b_user_id]},'deleted':0}
+    query = {'cp_unique_id': f'{b_user_id}_{c_user_id}' if b_user_id<c_user_id else f'{c_user_id}_{b_user_id}','deleted':0}
     res = romantic_list_v2_task.find(query)[0]
     event_type_stat = res['event_type_stat']
     print(event_type_stat)
@@ -134,7 +134,7 @@ def finish_lv7(b_user_id='1449736451',c_user_id='1451816241'):
     update_event_inter(res['_id'],c_user_id)
 
 def finish_lv9(b_user_id='1449736451',c_user_id='1451816241'):
-    query = {'cp_unique_id': {'$in':[b_user_id+'_'+c_user_id,c_user_id+'_'+b_user_id]},'deleted':0}
+    query = {'cp_unique_id': f'{b_user_id}_{c_user_id}' if b_user_id<c_user_id else f'{c_user_id}_{b_user_id}','deleted':0}
     res = romantic_list_v2_task.find(query)[0]
     event_type_stat = res['event_type_stat']
     print(event_type_stat)
@@ -154,7 +154,7 @@ def finish_lv9(b_user_id='1449736451',c_user_id='1451816241'):
     update_event_inter(res['_id'],c_user_id)
 
 def finish_lv10(b_user_id='1449736451',c_user_id='1451816241'):
-    query = {'cp_unique_id': {'$in':[b_user_id+'_'+c_user_id,c_user_id+'_'+b_user_id]},'deleted':0}
+    query = {'cp_unique_id': f'{b_user_id}_{c_user_id}' if b_user_id<c_user_id else f'{c_user_id}_{b_user_id}','deleted':0}
     res = romantic_list_v2_task.find(query)[0]
     event_type_stat = res['event_type_stat']
     print(event_type_stat)
@@ -174,7 +174,7 @@ def finish_lv10(b_user_id='1449736451',c_user_id='1451816241'):
     update_event_inter(res['_id'],c_user_id)
 
 def finish_lv11(b_user_id='1449736451',c_user_id='1451816241'):
-    query = {'cp_unique_id': {'$in':[b_user_id+'_'+c_user_id,c_user_id+'_'+b_user_id]},'deleted':0}
+    query = {'cp_unique_id': f'{b_user_id}_{c_user_id}' if b_user_id<c_user_id else f'{c_user_id}_{b_user_id}','deleted':0}
     res = romantic_list_v2_task.find(query)[0]
     event_type_stat = res['event_type_stat']
     print(event_type_stat)
@@ -205,5 +205,9 @@ def update_event_inter(id,uid):
 
 
 if __name__ == '__main__':
-     finish_lv11(c_user_id='1465369721',b_user_id='1452460951')
+     #finish_lv11(c_user_id='1465369721',b_user_id='1452460951')
+
+     a='14543'
+     b='14623'
+     print(f'{a}_{b}' if a=='a' else f'{b}_{a}',a>b)
 

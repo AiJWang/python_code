@@ -10,7 +10,7 @@ class Birthday_Party(Common_Function):
 
     #获取开启生日派对权限
     def get_permission(self, uid):
-        data_birthday_party_user = mongo.connectMongo(0, 'jinquan', 'data_birthday_party_user')
+        data_birthday_party_user = mongo.connectMongo('jinquan', 'data_birthday_party_user')
         # .strftime('%Y-%m-%d')
         print(datetime.datetime.now())
         yesterday = (datetime.datetime.now() - datetime.timedelta(hours=23, minutes=59, seconds=59)).strftime('%Y-%m-%d')
