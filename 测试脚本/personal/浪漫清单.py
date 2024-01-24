@@ -205,9 +205,6 @@ def update_event_inter(id,uid):
 
 
 if __name__ == '__main__':
-     #finish_lv11(c_user_id='1465369721',b_user_id='1452460951')
+     finish_lv11(c_user_id='1465369721',b_user_id='1452460951')
 
-     a='14543'
-     b='14623'
-     print(f'{a}_{b}' if a=='a' else f'{b}_{a}',a>b)
 

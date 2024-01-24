@@ -5,6 +5,7 @@ from 测试脚本.personal.mongconnect import mongoUtil
 
 mongoUtil=mongoUtil()
 
+#女嘉宾删除积分记录  type：92 延迟逼客奖励
 def delete_point_record(query):
     female_guest_point_record=mongoUtil.connectMongo('account','female_guest_point_record')
 
