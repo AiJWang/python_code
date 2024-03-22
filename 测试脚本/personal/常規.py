@@ -5,10 +5,21 @@ import requests
 
 from 测试脚本.personal.mongconnect import mongoUtil
 from 测试脚本.personal.redisUtil import RedisUtil
+from 测试脚本.personal.用户加盐分桶 import getBucket
 
 mongoUtil = mongoUtil()
 
 redis_db1=RedisUtil().connect_redis()
+'''
+如何成为老的家族长和小组长：
+1.user_attach表:更改sign_start_time 为2022.07.26 11：00：00 前
+2.sign_role_record表：更改create_time 为2022.07.26 11：00：00 前
+3.更改redis
+   key:
+   user:sign_role:first:ts:{user_id}:{role}
+   value:
+   将时间戳时间戳为2022.07.26 11：00：00 前
+'''
 
 
 # 修改恩爱值
@@ -112,8 +123,60 @@ def update_user_game_energy(user_list,value):
         else:
             print('请先开始一局游戏！')
 
+#删除好友关系
+def del_friend_relation(uid,friend_uid):
+    user_friend = mongoUtil.connectMongo('organization_service_test', 'user_friend')
+    rows=user_friend.delete_many({'$or':[{'user_id':uid,'friend_id':friend_uid},{'user_id':friend_uid,'friend_id':uid}]}).deleted_count
+    print(f'删除用户好友关系 {rows} 条')
+
+#查询明细&删除积分
+def del_female_guest_point_record(uid_list,delete=0):
+    female_guest_point_record = mongoUtil.connectMongo('account', 'female_guest_point_record')
+    res_female_guest_point_record=[]
+    for uid in uid_list:
+        res=list(female_guest_point_record.find({'user_id': uid}).sort([('_id', -1)]).limit(1))
+        if res and len(res)>0:
+            res_female_guest_point_record.append(res[0])
+    if res_female_guest_point_record and not delete:
+        return res_female_guest_point_record
+    rows=female_guest_point_record.delete_many({'user_id':{'$in':uid_list}}).deleted_count
+    print(f'删除明细条数 {rows} 条')
+
+#修改用户注册时间及注册版本
+def update_register_version_and_time(uid,register_version=None,register_time=None):
+    if register_time or register_version:
+        update_info={}
+        if register_time:
+            update_info['register_datetime']=register_time
+            if '-' in register_time:
+                register_date_time=datetime.datetime.strptime(register_time,'%Y-%m-%d %H:%M:%S')
+                register_time=int(time.mktime(register_date_time.timetuple())* 1000.0 + register_date_time.microsecond / 1000.0)
+                print(type(register_time),register_time)
+            update_info['register_time']=str(register_time)
+        if register_version:
+            update_info['register_version']=register_version
+        if update_info:
+            user = mongoUtil.connectMongo('jinquan', 'user')
+            res=user.update_one({'_id':uid},{'$set':update_info})
+            print(res.modified_count)
+            print(update_info)
+    else:
+        print('注册版本及注册时间为空，不进行更新操作！')
+
+
+
 if __name__ == '__main__':
-    #update_blind_box('1489653311','1072719101',3)
-    #火星：1490781851     我们的歌：1489653311    iqoo:1488701421   yueliang:1480845661  shuixing:1508726511
-    #update_love_socre('1509680431','1508726511')
-    update_interactive_value('1510063171','1508726511')
+    #设置旧白银清单  register_time='2023-01-01 12:01:23',register_version='2.0.4.7'
+    #sgfh   95-99  对照组
+    womendequ='1569471001'
+    ge='1569509961'
+    iq='1569703951'
+    sun='1550591221'
+    C3C='1568323341'
+    sky='1567363821'
+    #,register_version='1.9.9.5'
+    #update_register_version_and_time(uid=ge,register_time='2024-01-25 10:22:28')
+    print('本次实验分桶：',getBucket(ge+"scbt"))
+    print('白银实验分桶：',getBucket(ge+"silver_cp"))
+    print('浪漫清单分桶：',getBucket(ge+"sgfh"))
+

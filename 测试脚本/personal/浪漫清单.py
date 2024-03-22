@@ -89,7 +89,7 @@ def finish_lv3(b_user_id='1449736451',c_user_id='1451816241'):
     res = romantic_list_v2_task.find(query)[0]
     event_type_stat = res['event_type_stat']
     print(event_type_stat)
-    event_type_stat[str(const['3局五子棋'])] = {'count': 3}
+    event_type_stat[str(const['CP找你妹3局'])] = {'count': 3}
     event_type_stat[str(const['消消乐3局'])] = {'count': 3}
 
     update = {'$set': {'event_type_stat': event_type_stat}}
@@ -105,10 +105,11 @@ def finish_lv5(b_user_id='1449736451',c_user_id='1451816241'):
     event_type_stat = res['event_type_stat']
     print(event_type_stat)
     event_type_stat[str(const['王者开黑1局'])] = {'count': 3}
-    event_type_stat[str(const['消消乐3局'])] = {'count': 3}
     event_type_stat[str(const['3局你画我猜'])] = {'count': 3}
-    event_type_stat[str(const['CP找你妹3局'])] = {'count': 3}
     event_type_stat[str(const['桌球1局'])] = {'count': 1}
+    event_type_stat[str(const['3局五子棋'])] = {'count': 3}
+    event_type_stat[str(const['消消乐双方5w分'])] = {'count': 50000}
+
     print(event_type_stat)
     update = {'$set': {'event_type_stat': event_type_stat}}
     romantic_list_v2_task.update_many(query, update)
@@ -205,6 +206,13 @@ def update_event_inter(id,uid):
 
 
 if __name__ == '__main__':
-     finish_lv11(c_user_id='1465369721',b_user_id='1452460951')
+    shuixing='1508726511'
+    c3c='1568323341'
+    moon='1480845661'
+    ge='1568103791'
+    cat='1452460951'
+    iq='1569006911'
+    qu='1568983681'
+    finish_lv3(c_user_id=qu,b_user_id=iq)
 
 

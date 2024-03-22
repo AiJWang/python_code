@@ -15,8 +15,10 @@ class mongoUtil:
     mongourl=YmlTuil().readYml(path='../../config.yml').get('mongourl',None)
     __mongoUrlList=tuple(mongourl.values())
 
-    def connectMongo(self, db, table):
-        return MongoClient(self.mongourl.get(db))[db][table]
+    def connectMongo(self, key, table,db=None):
+        if db:
+            return MongoClient(self.mongourl.get(key))[db][table]
+        return MongoClient(self.mongourl.get(key))[key][table]
 
     def querytest08(self):
         collection = self.connectMongo(0, 'jinquan', 'user')

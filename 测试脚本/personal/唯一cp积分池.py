@@ -59,7 +59,7 @@ def get_together_on_mic(uid,femaluid,date='',delete=0,seconds=0):
         res=redis_db1.set(key,seconds)
         print(res)
 
-#设置互动值
+#设置互动时长
 def set_hudong(uid,femaluid,date='2024-01-18',value=1800):
     uid_key = f'{uid}_{femaluid}' if uid < femaluid else f'{femaluid}_{uid}'
     key=f'CACHE:DAILY:INTERACTION:TIME:{date}:{uid_key}'
@@ -93,9 +93,10 @@ def settle_cp(uid,femaluid):
     jackpot_daily_task.delete_many({'receiver_id':femaluid,'date':datetime.datetime(2024, 1, 20, 00, 00, 00, 000000)})
     url=f'http://metis-test.diffusenetwork.com/test_tools/settle_jackpot_task?jackpot_id={get_jackpoint(femaluid)}'
     result=requests.request(method='get',url=url)
+    print(result.text)
     print(result.json())
 
-def duizhaozu_(c_uid,female_uid):
+def duizhaozu(c_uid,female_uid):
     #修改积分池创建时间
     update_jackpoint_create_time(female_uid)
     #修改积分池积分
@@ -114,7 +115,7 @@ def shiyanzu(c_uid,female_uid):
     update_jackpoint_create_time(female_uid,value={'sender_score':1000,'score':1000})
 
     date_list=['2024-01-19','2024-01-20','2024-01-18']
-    #修改互动值
+    #修改互动时长
     for date in date_list:
         set_hudong(c_uid,female_uid,date=date,value=10)
     #设置连麦记录
@@ -129,7 +130,6 @@ if __name__ == '__main__':
     # id=get_jackpoint('1508200921')
     # print(id)
     # 对照组 水星：1508726511     C3C：1498619021    火星：1508472331   我们的歌：1489653311
-    female_uid='1508672661'
-    c_uid='1489653311'
-    huoxing='1508472331'
-    duizhaozu_(c_uid,female_uid)
+    female_uid='1452460951'
+    c_uid='1521939351'
+    shiyanzu(c_uid,female_uid)

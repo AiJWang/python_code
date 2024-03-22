@@ -7,7 +7,7 @@ mongoUtil=mongoUtil()
 def updateTime(dict):
     couple_level_relation = mongoUtil.connectMongo('jinquan', 'couple_level_relation')
     #修改组cp的时间
-    couple_level_relation.update_many(dict,{'$set':{'finish_time':datetime.datetime(2023, 10, 31, 19, 31, 21, 943000)}})
+    couple_level_relation.update_many(dict,{'$set':{'finish_time':datetime.datetime(2023, 12, 31, 19, 31, 21, 943000)}})
     res=couple_level_relation.find(dict)
 
     for i in res:
@@ -22,5 +22,5 @@ def updateRegisterVersion(dict):
         print(i)
 
 if __name__=='__main__':
-    updateTime({'male_user_id':'1417432981'})
+    updateTime({'male_user_id':'1521939351'})
     print(131197922781>294845150321)
