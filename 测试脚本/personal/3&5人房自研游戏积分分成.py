@@ -117,5 +117,5 @@ def cal_point(coin,receiver=cat,group_leader=cat,family_leader=moon,anchor=moon,
 
 
 if __name__ == '__main__':
-    cal_point(30,receiver=womendequ,anchor=cat)
+    cal_point(99,receiver=cat,anchor=moon)
     #del_female_guest_point_record([duoilamisao1,moon,cat],delete=1),glSingle=False

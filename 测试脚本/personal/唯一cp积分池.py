@@ -129,7 +129,8 @@ def shiyanzu(c_uid,female_uid):
 if __name__ == '__main__':
     # id=get_jackpoint('1508200921')
     # print(id)
-    # 对照组 水星：1508726511     C3C：1498619021    火星：1508472331   我们的歌：1489653311
-    female_uid='1452460951'
-    c_uid='1521939351'
-    shiyanzu(c_uid,female_uid)
+    # 对照组 水星：1508726511     C3C：1498619021    火星：1508472331   我们的歌：1489653311  月亮 1480845661
+    female_uid='1480845661'
+    c_uid='1578800521'
+    #get_together_on_mic(c_uid, female_uid, seconds=180, date='20240120')
+    set_hudong(c_uid,female_uid,date='2024-03-27')

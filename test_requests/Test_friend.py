@@ -35,6 +35,10 @@ class Test_FriendGet:
         print(YmlTuil().readYml())
         print('-'*10)
         print(resp.json())
+    def test(self):
+        print('first test')
 
 
-
+if __name__ == '__main__':
+    aa=getattr('Test_FriendGet','test')
+    print(aa)

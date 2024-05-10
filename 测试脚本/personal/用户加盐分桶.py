@@ -17,7 +17,12 @@ yan = {'浪漫清单': 'sgfh',
        '主动铃':'cp_bell_exchange',
        '0元组cp老用户实验':'scbt',
        '女嘉宾白银cp陪伴实验':'accompany_b_task',
-       '主持人白银cp陪伴实验':'assistance_task'
+       '主持人白银cp陪伴实验':'assistance_task',
+       '缘分宝箱':'fate_box',
+       '停留铃':'stop_bell',
+       '搭子':'mate_user',
+       '上麦转圈':'dc6a',
+       '主持人发钱':'female_red_packet'
        }
 
 
@@ -25,17 +30,12 @@ yan = {'浪漫清单': 'sgfh',
 def getBucket(uid, group_num=100):
     if not group_num:
         group_num = 30
+    print(uid)
     m = hashlib.md5(uid.encode(encoding='utf-8'))
     hexKey = int(m.hexdigest(), 16)
     return hexKey % group_num
 
 
 if __name__ == '__main__':
-    qu='340628222151'
-    ge='1568748251'
-    iq='341532327241'
-    sun='1550591221'
-    C3C='1550628211'
-    print(getBucket(iq+yan['主持人白银cp陪伴实验']))
-    print(getBucket(iq + yan['女嘉宾白银cp陪伴实验']))
-
+    ge='1651833521'
+    print(getBucket(ge+yan['主持人发钱']))

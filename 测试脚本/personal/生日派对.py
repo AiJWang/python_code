@@ -51,4 +51,4 @@ if __name__ == '__main__':
     shuixing='1508726511'
     #birthday_party.insert_intimacy_users(cat,[womendequ,womendege])
     #birthday_party.del_birthday_party_remind(cat)
-    birthday_party.insert_intimacy_users('1090140181',['999781791'])
+    birthday_party.get_permission(cat)

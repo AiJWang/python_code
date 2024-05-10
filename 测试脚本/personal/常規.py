@@ -1,4 +1,5 @@
 import datetime
+import socket
 import time
 
 import requests
@@ -62,19 +63,33 @@ def get_interactive_value(male_user_id, inter_user_id):
 
 
 # 修改cp陪伴礼物   盲盒
-def update_blind_box(cuid, buid, num=0):
+def update_blind_box(cuid, buid, num=3):
     c_p_blind_box = mongoUtil.connectMongo('jinquan', 'c_p_blind_box')
     cp_tag = f'{buid}_{cuid}' if cuid > buid else f'{cuid}_{buid}'
     query = {'cp_tag': cp_tag}
     res=c_p_blind_box.update_many(query, {'$set': {'cnt': num,'gift_list':[[211, 78, 212]]}})
-    print(f'修改了 {res.modified_count} 条数据')
+    if not res.modified_count:
+        data={'biz': 'jinquan', 'app': 'jinquan_leader',
+              'expire_time': datetime.datetime.now(),
+              'user_id': cuid, 'cp_user_id': buid,
+              'cp_tag': cp_tag,
+              'cnt': num, 'create_time': datetime.datetime.now(),
+              'gift_list': [[175, 87, 78], [174, 78, 44], [212, 87, 174]],
+              'zero_discount_opportunity': 0,
+              'three_discount_opportunity': 0}
+
+        ins_resu=c_p_blind_box.insert_one(data)
+        print(f'插入数据{ins_resu.inserted_id}条')
+    else:
+        print(f'修改了 {res.modified_count} 条数据')
+
 
 
 # 修改金虎数量
 def update_golden_tigers(uid, num=0):
     user_attach = mongoUtil.connectMongo('jinquan', 'user_attach')
-    user_attach.update_many({'_id': uid}, {'$set': {'golden_tigers': num}})
-
+    res=user_attach.update_many({'_id': uid}, {'$set': {'golden_tigers': num}})
+    print(res.modified_count)
 
 # 判断房间类型
 def get_room_type(familyid='',anchor_id=''):
@@ -124,9 +139,12 @@ def update_user_game_energy(user_list,value):
             print('请先开始一局游戏！')
 
 #删除好友关系
-def del_friend_relation(uid,friend_uid):
+def del_friend_relation(uid,friend_uid=None):
     user_friend = mongoUtil.connectMongo('organization_service_test', 'user_friend')
-    rows=user_friend.delete_many({'$or':[{'user_id':uid,'friend_id':friend_uid},{'user_id':friend_uid,'friend_id':uid}]}).deleted_count
+    if friend_uid:
+        rows=user_friend.delete_many({'$or':[{'user_id':uid,'friend_id':friend_uid},{'user_id':friend_uid,'friend_id':uid}]}).deleted_count
+    else:
+        rows=user_friend.delete_many({'user_id':uid}).deleted_count
     print(f'删除用户好友关系 {rows} 条')
 
 #查询明细&删除积分
@@ -174,9 +192,27 @@ if __name__ == '__main__':
     sun='1550591221'
     C3C='1568323341'
     sky='1567363821'
+    huoxing='1634322081'
+    cat='1452460951'
     #,register_version='1.9.9.5'
-    #update_register_version_and_time(uid=ge,register_time='2024-01-25 10:22:28')
-    print('本次实验分桶：',getBucket(ge+"scbt"))
-    print('白银实验分桶：',getBucket(ge+"silver_cp"))
-    print('浪漫清单分桶：',getBucket(ge+"sgfh"))
+    # update_register_version_and_time(uid=huoxing,register_version='2.1.0.3')
+    # update_register_version_and_time(uid=huoxing,register_time='2024-04-30 10:22:28')
 
+    # update_golden_tigers('1622722681',1)
+    # update_blind_box('1602642401','1480845661',num=3)
+    #update_golden_tigers('1600740271',num=1)
+    #update_love_socre(male_user_id='1587541011',inter_user_id='1622357071',love_score=500)
+    #update_blind_box('1628757361','1480845661')
+    # timenow=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    # print(timenow,type(timenow))
+    # update_interactive_value(male_user_id='1660239691',inter_user_id='1651833521',value=29)
+    n=3
+    data={
+        'haha':{'ss':23}
+    }
+    while n>0:
+        print(n)
+        if haha :=data.get('haha'):
+            print(haha)
+            n=0
+        n-=1
