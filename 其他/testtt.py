@@ -1,5 +1,8 @@
-class C:
+from 其他.装饰器 import print_dec
 
+
+class C:
+    @print_dec
     def getsss(self,kwags):
         print('sss')
         print(kwags)
@@ -10,5 +13,6 @@ class C:
         print(type(args))
         print(type(kwargs))
 if __name__=='__main__':
-    C().getsss({'ss':12})
-    C().getA(12,13,14,15,16,name='getA',age=23,family=['22','33'])
+    c=C()
+    print(c)
+    c.getsss({'ss':12})
