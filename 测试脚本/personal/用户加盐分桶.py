@@ -22,7 +22,9 @@ yan = {'浪漫清单': 'sgfh',
        '停留铃':'stop_bell',
        '搭子':'mate_user',
        '上麦转圈':'dc6a',
-       '主持人发钱':'female_red_packet'
+       '主持人发钱':'female_red_packet',
+       '邀请女嘉宾进家族': 'invite_female_v2',
+       '女嘉宾流量扶持':'qi_yu_bell'
        }
 
 
@@ -30,12 +32,13 @@ yan = {'浪漫清单': 'sgfh',
 def getBucket(uid, group_num=100):
     if not group_num:
         group_num = 30
-    print(uid)
     m = hashlib.md5(uid.encode(encoding='utf-8'))
     hexKey = int(m.hexdigest(), 16)
     return hexKey % group_num
 
 
 if __name__ == '__main__':
-    ge='1651833521'
-    print(getBucket(ge+yan['主持人发钱']))
+    C3C='354861341671'
+    print(getBucket(C3C+yan['邀请女嘉宾进家族']))
+    print(getBucket(C3C+yan['女嘉宾流量扶持']))
+
