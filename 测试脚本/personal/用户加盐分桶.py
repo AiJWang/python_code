@@ -38,7 +38,7 @@ def getBucket(uid, group_num=100):
 
 
 if __name__ == '__main__':
-    C3C='354861341671'
+    C3C='1681374311'
     print(getBucket(C3C+yan['邀请女嘉宾进家族']))
     print(getBucket(C3C+yan['女嘉宾流量扶持']))
 

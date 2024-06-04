@@ -7,12 +7,19 @@ from util.yamlUtil import YmlTuil
 
 class RedisUtil:
     redis_info=YmlTuil().readYml(path='../../config.yml').get('redis',None)
-    host= redis_info.get('host')
-    auth= redis_info.get('auth')
-    db=redis_info.get('db')
+    # host= redis_info.get('host')
+    # auth= redis_info.get('auth')
+    # db=redis_info.get('db')
     redis_online_room=YmlTuil().readYml(path='../../config.yml').get('redis_online_room_settings',None)
-    def connect_redis(self):
-        return redis.Redis(host=self.host,password=self.auth,db=self.db,decode_responses=True)
+    def connect_redis(self,redis_type='jinquan'):
+        if redis_type=='jinquan':
+            redis_info=self.redis_info.get('jinquan')
+        else:
+            redis_info=self.redis_info.get('maitian')
+        host= redis_info.get('host')
+        auth= redis_info.get('auth')
+        db=redis_info.get('db')
+        return redis.Redis(host=host,password=auth,db=db,decode_responses=True)
 
     def connect_redis_online_room(self):
         print(self.redis_online_room.get('host'),self.redis_online_room.get('auth'), self.redis_online_room.get('db'), self.redis_online_room.get('port'))

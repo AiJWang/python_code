@@ -22,7 +22,11 @@ redis_db1=RedisUtil().connect_redis()
    将时间戳时间戳为2022.07.26 11：00：00 前
 '''
 
-
+'''修改签约时间，user-attach'''
+def get_nick_name(uid):
+    user = mongoUtil.connectMongo('jinquan', 'user')
+    result=list(user.find({'_id':uid}))[0]
+    return result.get('nick_name')
 # 修改恩爱值
 def update_love_socre(male_user_id, inter_user_id, love_score=299):
     couple_relation = mongoUtil.connectMongo('jinquan', 'couple_relation')
@@ -34,6 +38,31 @@ def update_love_socre(male_user_id, inter_user_id, love_score=299):
     res = couple_relation.update_many(query, value)
 
     print(res.modified_count)
+
+def update_unsigned_female_point(uid,account):
+    '''修改未签约女嘉宾积分总额及当日积分'''
+    user_account = mongoUtil.connectMongo('account','user_account')
+    res=user_account.update_one({'_id':uid},{'$set':{'point':int(account)}})
+    print(res.modified_count)
+    today=datetime.datetime.now().date()
+    key=f'user_today_incr_point:{uid}:{today}' #今日获得积分
+    redis_db1.set(key,f'{account}')
+
+def update_unsigned_female_on_imc_time(uid,total_time=18000):
+    '''修改女嘉宾上麦时长'''
+    if type(total_time)!=int:
+        total_time=int(total_time)
+    user_attach = mongoUtil.connectMongo('jinquan', 'user_attach')
+    res=user_attach.update_one({'_id':uid},{'$set':{'total_on_mic_duration':total_time}})
+    print(res.modified_count)
+
+def update_sign_start_time(uid,sign_time=datetime.datetime.now()-datetime.timedelta(days=datetime.datetime.now().day-1)):
+    '''修改签约时间，默认为当月1号'''
+    user_attach = mongoUtil.connectMongo('jinquan', 'user_attach')
+    # ss=list(user_attach.find({'_id':uid}))[0]
+    # print(ss.get('voice_female_start_time'),type(ss.get('voice_female_start_time')))
+    ress=user_attach.update_one({'_id':uid},{'$set':{'sign_start_time':sign_time}})
+    print(ress.modified_count)
 
 
 # 修改互动值
@@ -153,7 +182,7 @@ def del_female_guest_point_record(uid_list,delete=0):
     res_female_guest_point_record=[]
     for uid in uid_list:
         res=list(female_guest_point_record.find({'user_id': uid}).sort([('_id', -1)]).limit(1))
-        if res and len(res)>0:
+        if res:
             res_female_guest_point_record.append(res[0])
     if res_female_guest_point_record and not delete:
         return res_female_guest_point_record
@@ -186,33 +215,16 @@ def update_register_version_and_time(uid,register_version=None,register_time=Non
 if __name__ == '__main__':
     #设置旧白银清单  register_time='2023-01-01 12:01:23',register_version='2.0.4.7'
     #sgfh   95-99  对照组
-    womendequ='1569471001'
-    ge='1569509961'
-    iq='1569703951'
-    sun='1550591221'
-    C3C='1568323341'
-    sky='1567363821'
-    huoxing='1634322081'
-    cat='1452460951'
-    #,register_version='1.9.9.5'
-    # update_register_version_and_time(uid=huoxing,register_version='2.1.0.3')
-    # update_register_version_and_time(uid=huoxing,register_time='2024-04-30 10:22:28')
-
-    # update_golden_tigers('1622722681',1)
-    # update_blind_box('1602642401','1480845661',num=3)
-    #update_golden_tigers('1600740271',num=1)
-    #update_love_socre(male_user_id='1587541011',inter_user_id='1622357071',love_score=500)
-    #update_blind_box('1628757361','1480845661')
-    # timenow=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    # print(timenow,type(timenow))
-    # update_interactive_value(male_user_id='1660239691',inter_user_id='1651833521',value=29)
-    n=3
-    data={
-        'haha':{'ss':23}
-    }
-    while n>0:
-        print(n)
-        if haha :=data.get('haha'):
-            print(haha)
-            n=0
-        n-=1
+    # update_unsigned_female_point('1642724051',4000)
+    # ss=sign_time=datetime.datetime.now()-datetime.timedelta(days=datetime.datetime.now().day-1)
+    # print(ss,type(ss))
+    # update_sign_start_time('1642724051')
+    time1="2024-06-03 19:33:24"
+    time2="2024-06-03 19:33:25"
+    ss=time1.split(':')
+    ss1=time2.split(':')
+    print(ss[0]+ss[1])
+    print(ss[0]+ss[1]==ss1[0]+ss1[1])
+    print(time2>time1)
+    print(time1[0:-3])
+    print(datetime.datetime.strptime(time1,'%Y-%m-%d %H:%M:%S'))

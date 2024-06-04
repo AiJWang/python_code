@@ -20,12 +20,17 @@ print('昨天当前时间', yesterdayNow)
 print('明天当前时间', tomorrowNow)
 print('时间格式化',now.strftime('%Y-%m-%d %H:%M:%S'))
 print(now.date())
+print(type(now.date()))
 #字符串转化为datetime
 str_time = datetime.datetime.strptime(now.strftime('%Y-%m-%d %H:%M:%S'), "%Y-%m-%d %H:%M:%S")
 print(str_time)
+print(type(str_time))
 
 
 #将datetime转化为时间戳
 register_time=int(time.mktime(str_time.timetuple())* 1000.0 + str_time.microsecond / 1000.0)
 
 print(register_time)
+
+
+print(datetime.date.today())

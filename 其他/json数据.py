@@ -9,4 +9,16 @@ dict1={'天王':'天王盖地虎',
        '宝塔':'宝塔镇河妖'}
 #ensure_ascii=False 不写这个中文乱码
 print(json.dumps(dict1,ensure_ascii=False))
-print(json.dump(dict1))
+# print(json.dump(dict1))
+
+f=open('./test_file_data/a.txt','w')
+print(type(f))
+f.close()
+
+with open('./test_file_data/a.txt','w') as f:
+       res=json.dump(dict1,f,ensure_ascii=False)
+       print(res)
+
+with open('./test_file_data/a.txt','r') as f1:
+       res=json.load(f1)
+       print(res)
