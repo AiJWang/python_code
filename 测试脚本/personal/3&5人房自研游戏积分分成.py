@@ -5,7 +5,7 @@ import requests
 
 from 测试脚本.personal.common import Common_Function
 from 测试脚本.personal.女嘉宾积分相关 import del_signed_voice_female_monthly
-from 测试脚本.personal.常規 import del_female_guest_point_record, update_interactive_value
+from 测试脚本.personal.常規 import del_female_guest_point_record,update_blind_box,update_sign_time_groupld_familyld
 from 测试脚本.personal.mongconnect import mongoUtil
 
 
@@ -168,13 +168,14 @@ def cal_point(coin,sender,receiver,anchor=None,scene='room'):
 
 
 
-def cal_point_0525_guanlifei(sender,receiver):
+def cal_point_0525_guanlifei(sender,receiver,real_coin=None):
     receiver_group_leader_money = 0
     sender_family_leader_money = 0
     receiver_family_leader_money = 0
     sender_group_leader_money = 0
     anchor_changdifei = 0
-
+    changdeifei=True
+    check_changdifei=False
     user_gift_record = mongoUtil.connectMongo('jinquan','user_gift_record')
     gift_record=list(user_gift_record.find({'user_id':sender,'internal_user_id':receiver}).sort([('_id',-1)]).limit(1))[0]
     gift_sender_time=gift_record.get('create_time')
@@ -183,7 +184,12 @@ def cal_point_0525_guanlifei(sender,receiver):
     if not anchor:
         anchor=gift_record.get('team_leader_id',None)
     coin=gift_record.get('price_total')
-
+    sub_price_total=gift_record.get('sub_price_total')
+    if sub_price_total and sub_price_total>coin:
+        coin=sub_price_total
+        changdeifei=False
+    if real_coin:
+        coin=real_coin
     receiver_point = coin*10*0.24
     family=mongoUtil.connectMongo('jinquan','family')
 
@@ -206,7 +212,12 @@ def cal_point_0525_guanlifei(sender,receiver):
 
     groupratio=0.07
     familyratio=0.02
-
+    sign_role_record = mongoUtil.connectMongo('jinquan', 'sign_role_record')
+    slr=list(sign_role_record.find({'user_id':receiver_family_leader_id,'next_role':10}))[0]
+    sign_time=slr.get('create_time')
+    if sign_time<datetime.datetime.strptime('2022-07-26 11:00:00','%Y-%m-%d %H:%M:%S'):
+        familyratio=0.03
+        print('老家族长---')
 
     #家族长管理费
     receiver_family_leader_money+=coin*10*familyratio
@@ -218,9 +229,8 @@ def cal_point_0525_guanlifei(sender,receiver):
     anchor_changdifei+=coin*10*0.05
 
     #自己收无场地费
-    if receiver==anchor:
+    if receiver==anchor or not changdeifei:
         anchor_changdifei=0
-
     total_group_money=None
     total_family_money=None
     if anchor == receiver_group_leader_id:
@@ -231,6 +241,9 @@ def cal_point_0525_guanlifei(sender,receiver):
         sender_family_leader_money+=anchor_changdifei
     elif anchor == receiver_family_leader_id:
         receiver_family_leader_money+=anchor_changdifei
+    else:
+        if receiver!=anchor:
+            check_changdifei=True
 
     if sender_group_id==reveiver_group_id:
         total_group_money=receiver_group_leader_money+sender_group_leader_money
@@ -265,6 +278,12 @@ def cal_point_0525_guanlifei(sender,receiver):
             elif i.get('user_id')==receiver:
                 assert i.get('point') - round(receiver_point,2) ==0, '收礼人 积分报错啦！！'
                 print('收礼人 积分测试通过')
+            elif check_changdifei and i.get('user_id')==anchor:
+                if time_range[0]<datetime.datetime.strptime(i.get('create_time'),'%Y-%m-%d %H:%M:%S')<time_range[1]:
+                    assert i.get('point') - round(anchor_changdifei,2) ==0, f'主持人场地费 积分报错啦！！，应得积分：{anchor_changdifei}，实际获得：{i.get("point")}'
+                    print('主持人场地费 积分测试通过')
+                else:
+                    assert round(anchor_changdifei,2)==0, f'主持人场地费 积分报错啦，应得积分：{round(anchor_changdifei,2)}，实际获得：0'
     else:
         for i in female_guest_point_record:
             if i.get('user_id')==receiver_group_leader_id:
@@ -298,6 +317,12 @@ def cal_point_0525_guanlifei(sender,receiver):
             elif i.get('user_id')==receiver:
                 assert i.get('point') - round(receiver_point,2) ==0, '收礼人 积分报错啦！！'
                 print('收礼人 积分测试通过')
+            elif check_changdifei and i.get('user_id')==anchor:
+                if time_range[0]<datetime.datetime.strptime(i.get('create_time'),'%Y-%m-%d %H:%M:%S')<time_range[1]:
+                    assert i.get('point') - round(anchor_changdifei,2) ==0, f'主持人场地费 积分报错啦！！，应得积分：{anchor_changdifei}，实际获得：{i.get("point")}'
+                    print('主持人场地费 积分测试通过')
+                else:
+                    assert round(anchor_changdifei,2)==0, f'主持人场地费 积分报错啦，应得积分：{round(anchor_changdifei,2)}，实际获得：0'
 
     #积分池
     receiver_jackpot=round(coin*10*0.01,2)
@@ -320,16 +345,15 @@ def cal_point_0525_guanlifei(sender,receiver):
     else:
         print('无积分池， 不需验证')
 
-    #删除所有积分明细
-    #del_female_guest_point_record([receiver,group_leader,family_leader],delete=1)
-
 if __name__ == '__main__':
-    user_info={'qingwa':'1688205221','water':'1726058281','maoer':'1604497831','nier':'1604468611','cat':'1452460951',
-               'moon':'1480845661','sunflower':'1604589981','iq':'1622722681','huoxing':'1642724051','ge': '1600740271',
-               'c3c':'1733610301','sun':'1734748351','qu':'1687572931'}
+    user_info={'qingwa':'1754679201','water':'1758059141','maoer':'1726293911','nier':'1604468611','cat':'1452460951',
+               'moon':'1480845661','sunflower':'1604589981','iq':'1622722681','huoxing':'1756678591','ge': '1600740271',
+               'c3c':'1733610301','sun':'1734748351','qu':'1754927791'}
 
     #cal_point(100,receiver=user_info.get('water'),anchor=cat,glSingle=False)
     #del_female_guest_point_record([duoilamisao1,moon,cat],delete=1),glSingle=False
-    sender=user_info.get('qu')
-    receiver=user_info.get('huoxing')
+    sender=user_info.get('qingwa')
+    receiver=user_info.get('water')
     cal_point_0525_guanlifei(sender,receiver)
+    # update_blind_box(sender,receiver,10)
+    #update_sign_time_groupld_familyld('1604468611',sign_old=False)

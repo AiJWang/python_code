@@ -32,5 +32,8 @@ register_time=int(time.mktime(str_time.timetuple())* 1000.0 + str_time.microseco
 
 print(register_time)
 
+#获取秒级时间戳
+print(int(time.mktime(str_time.timetuple())))
+print(int(time.time()))
 
 print(datetime.date.today())

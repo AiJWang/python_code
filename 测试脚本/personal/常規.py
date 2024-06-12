@@ -1,12 +1,9 @@
 import datetime
-import socket
 import time
 
-import requests
 
 from 测试脚本.personal.mongconnect import mongoUtil
 from 测试脚本.personal.redisUtil import RedisUtil
-from 测试脚本.personal.用户加盐分桶 import getBucket
 
 mongoUtil = mongoUtil()
 
@@ -24,11 +21,34 @@ redis_db1=RedisUtil().connect_redis()
 
 '''修改签约时间，user-attach'''
 def get_nick_name(uid):
+    '''获取用户昵称'''
     user = mongoUtil.connectMongo('jinquan', 'user')
     result=list(user.find({'_id':uid}))[0]
     return result.get('nick_name')
-# 修改恩爱值
+
+def update_sign_time_groupld_familyld(uid,is_family_leader=False,sign_old=True):
+    '''修改家族长小组长签约时间，变家族长小组长'''
+    next_role=9
+    stime='2022-07-20 11:00:00'
+    if is_family_leader:
+        next_role=10
+    if not sign_old:
+        stime='2023-07-20 11:00:00'
+    target_time=datetime.datetime.strptime(stime,'%Y-%m-%d %H:%M:%S')
+    user_attach = mongoUtil.connectMongo('jinquan', 'user_attach')
+    uas=user_attach.update_one({'_id':uid},{'$set':{'sign_start_time':target_time}})
+    print(f'user attach 更新时间：{uas.modified_count}')
+    sign_role_record = mongoUtil.connectMongo('jinquan', 'sign_role_record')
+    slr=sign_role_record.update_one({'user_id':uid,'next_role':next_role},{'$set':{'create_time':target_time}})
+    print(f'sign_role_record 更新时间：{slr.modified_count}')
+    times=int(time.mktime(target_time.timetuple()))
+    key=f'user:sign_role:first:ts:{uid}:{next_role}'
+    redis_res=redis_db1.set(key,str(times))
+    print(redis_res)
+
+
 def update_love_socre(male_user_id, inter_user_id, love_score=299):
+    '''修改恩爱值'''
     couple_relation = mongoUtil.connectMongo('jinquan', 'couple_relation')
     query = {'male_user_id': male_user_id, 'internal_user_id': inter_user_id}
     ress = couple_relation.find(query)
@@ -59,14 +79,13 @@ def update_unsigned_female_on_imc_time(uid,total_time=18000):
 def update_sign_start_time(uid,sign_time=datetime.datetime.now()-datetime.timedelta(days=datetime.datetime.now().day-1)):
     '''修改签约时间，默认为当月1号'''
     user_attach = mongoUtil.connectMongo('jinquan', 'user_attach')
-    # ss=list(user_attach.find({'_id':uid}))[0]
-    # print(ss.get('voice_female_start_time'),type(ss.get('voice_female_start_time')))
     ress=user_attach.update_one({'_id':uid},{'$set':{'sign_start_time':sign_time}})
     print(ress.modified_count)
 
 
-# 修改互动值
+
 def update_interactive_value(male_user_id, inter_user_id, value=30):
+    '''修改互动值'''
     couple_relation = mongoUtil.connectMongo('jinquan', 'couple_relation')
     query = {'male_user_id': male_user_id, 'internal_user_id': inter_user_id}
     ress = couple_relation.find(query)
@@ -77,8 +96,8 @@ def update_interactive_value(male_user_id, inter_user_id, value=30):
     print('修改条数', res.modified_count)
 
 
-# 查询互动值
 def get_interactive_value(male_user_id, inter_user_id):
+    '''查询互动值'''
     couple_relation = mongoUtil.connectMongo('jinquan', 'couple_relation')
     user_ids_key = f'{inter_user_id}_{male_user_id}' if male_user_id > inter_user_id else f'{male_user_id}_{inter_user_id}'
     query = {'user_ids_key': user_ids_key}
@@ -90,12 +109,11 @@ def get_interactive_value(male_user_id, inter_user_id):
         print('未查询到相关数据~')
         return None
 
-
-# 修改cp陪伴礼物   盲盒
 def update_blind_box(cuid, buid, num=3):
+    '''修改cp陪伴礼物   盲盒'''
     c_p_blind_box = mongoUtil.connectMongo('jinquan', 'c_p_blind_box')
     cp_tag = f'{buid}_{cuid}' if cuid > buid else f'{cuid}_{buid}'
-    query = {'cp_tag': cp_tag}
+    query = {'cp_tag': cp_tag,'user_id':cuid}
     res=c_p_blind_box.update_many(query, {'$set': {'cnt': num,'gift_list':[[211, 78, 212]]}})
     if not res.modified_count:
         data={'biz': 'jinquan', 'app': 'jinquan_leader',
@@ -111,18 +129,34 @@ def update_blind_box(cuid, buid, num=3):
         print(f'插入数据{ins_resu.inserted_id}条')
     else:
         print(f'修改了 {res.modified_count} 条数据')
+    query = {'cp_tag': cp_tag,'user_id':buid}
+    res=c_p_blind_box.update_many(query, {'$set': {'cnt': num,'gift_list':[[211, 78, 212]]}})
+    if not res.modified_count:
+        data={'biz': 'jinquan', 'app': 'jinquan_leader',
+              'expire_time': datetime.datetime.now(),
+              'user_id': buid, 'cp_user_id': cuid,
+              'cp_tag': cp_tag,
+              'cnt': num, 'create_time': datetime.datetime.now(),
+              'gift_list': [[175, 87, 78], [174, 78, 44], [212, 87, 174]],
+              'zero_discount_opportunity': 0,
+              'three_discount_opportunity': 0}
+
+        ins_resu=c_p_blind_box.insert_one(data)
+        print(f'插入数据{ins_resu.inserted_id}条')
+    else:
+        print(f'修改了 {res.modified_count} 条数据')
 
 
 
-# 修改金虎数量
 def update_golden_tigers(uid, num=0):
+    '''修改金虎数量'''
     user_attach = mongoUtil.connectMongo('jinquan', 'user_attach')
     res=user_attach.update_many({'_id': uid}, {'$set': {'golden_tigers': num}})
     print(res.modified_count)
 
-# 判断房间类型
+
 def get_room_type(familyid='',anchor_id=''):
-    # 3/5人房 rtc_service
+    '''判断房间类型'''
     if familyid:
         family = mongoUtil.connectMongo('jinquan', 'family')
         result = list(family.find({'_id': familyid}))
@@ -156,8 +190,9 @@ def get_room_type(familyid='',anchor_id=''):
     else:
         print('请传入家族id或者3/5人房主持人id')
 
-#修改充能值
+
 def update_user_game_energy(user_list,value):
+    '''修改充能值'''
     for user in user_list:
         if(redis_db1.exists(f'user_game_energy:{user}')):
             print('修改前：',redis_db1.hgetall(f'user_game_energy:{user}'))
@@ -167,8 +202,9 @@ def update_user_game_energy(user_list,value):
         else:
             print('请先开始一局游戏！')
 
-#删除好友关系
+
 def del_friend_relation(uid,friend_uid=None):
+    '''删除好友关系'''
     user_friend = mongoUtil.connectMongo('organization_service_test', 'user_friend')
     if friend_uid:
         rows=user_friend.delete_many({'$or':[{'user_id':uid,'friend_id':friend_uid},{'user_id':friend_uid,'friend_id':uid}]}).deleted_count
@@ -176,8 +212,9 @@ def del_friend_relation(uid,friend_uid=None):
         rows=user_friend.delete_many({'user_id':uid}).deleted_count
     print(f'删除用户好友关系 {rows} 条')
 
-#查询明细&删除积分
+
 def del_female_guest_point_record(uid_list,delete=0):
+    '''查询明细&删除积分'''
     female_guest_point_record = mongoUtil.connectMongo('account', 'female_guest_point_record')
     res_female_guest_point_record=[]
     for uid in uid_list:
@@ -189,8 +226,9 @@ def del_female_guest_point_record(uid_list,delete=0):
     rows=female_guest_point_record.delete_many({'user_id':{'$in':uid_list}}).deleted_count
     print(f'删除明细条数 {rows} 条')
 
-#修改用户注册时间及注册版本
+
 def update_register_version_and_time(uid,register_version=None,register_time=None):
+    '''修改用户注册时间及注册版本'''
     if register_time or register_version:
         update_info={}
         if register_time:
@@ -228,3 +266,6 @@ if __name__ == '__main__':
     print(time2>time1)
     print(time1[0:-3])
     print(datetime.datetime.strptime(time1,'%Y-%m-%d %H:%M:%S'))
+    # update_unsigned_female_on_imc_time('1760777471')
+    #update_sign_start_time('1760777471')
+    update_blind_box('1754679201','1768169111')
