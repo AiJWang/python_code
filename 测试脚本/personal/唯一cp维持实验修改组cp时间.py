@@ -4,6 +4,7 @@ from 测试脚本.personal.mongconnect import mongoUtil
 
 mongoUtil=mongoUtil()
 #五分鐘一次的定時任務，將 finish_time 修改為10天譴，可直接解除cp
+#还得修改7天亲密值：cp_intimacy|28632441_31129341
 def updateTime(dict):
     couple_level_relation = mongoUtil.connectMongo('jinquan', 'couple_level_relation')
     #修改组cp的时间

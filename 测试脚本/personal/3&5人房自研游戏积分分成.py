@@ -35,14 +35,25 @@ def get_main_family(uid=None):
     main_family_group_id=result.get('data').get('user_info').get('family_group_id')
     return main_family_group_id,main_family_id
 # flDouble 家族长双份     glSingle： 小组长单分
-def cal_point(coin,sender,receiver,anchor=None,scene='room'):
+def cal_point(sender,receiver,anchor=None,scene='room'):
     receiver_group_leader_money = 0
     sender_family_leader_money = 0
     receiver_family_leader_money = 0
     sender_group_leader_money = 0
     anchor_changdifei = 0
-
-    receiver_point = coin*10*0.24
+    user=mongoUtil.connectMongo('jinquan','user')
+    sender_user_info=list(user.find({'_id':sender}))
+    sender_app_info=sender_user_info[0].get('app')
+    #根据送装扮记录表，查询礼物价格
+    prop_send_record = mongoUtil.connectMongo('jinquan', 'prop_send_record')
+    prop_send_record_newest=list(prop_send_record.find({'user_id':sender}).sort([('_id', -1)]).limit(1))
+    if sender_app_info=='jinquan_leader':
+        coin=prop_send_record_newest[0].get('price_total')-prop_send_record_newest[0].get('deduct_freecoin')
+    else:
+        coin=prop_send_record_newest[0].get('price_total')
+    gift_sender_time=prop_send_record_newest[0].get('create_time')
+    time_range=[gift_sender_time-datetime.timedelta(seconds=2),gift_sender_time+datetime.timedelta(seconds=2)]
+    receiver_point = coin*10*0.15
     family=mongoUtil.connectMongo('jinquan','family')
 
     sender_group_id,sender_family_id=get_main_family(sender)
@@ -50,6 +61,9 @@ def cal_point(coin,sender,receiver,anchor=None,scene='room'):
 
     sender_group_leader_id=list(family.find({'_id':sender_group_id}))[0].get('family_head')
     sender_family_leader_id=list(family.find({'_id':sender_family_id}))[0].get('family_head')
+    couple_relation_unique=mongoUtil.connectMongo('jinquan','couple_relation_unique')
+    cps=list(couple_relation_unique.find({'$or':[{'user_id':sender,'bind_user_id':receiver,'deleted':0},{'user_id':receiver,'bind_user_id':sender,'deleted':0}]}))
+
     if sender_group_id==reveiver_group_id:
         receiver_group_leader_id= sender_group_leader_id
         receiver_family_leader_id=sender_family_leader_id
@@ -58,7 +72,7 @@ def cal_point(coin,sender,receiver,anchor=None,scene='room'):
         receiver_family_leader_id=list(family.find({'_id':reveiver_family_id}))[0].get('family_head')
 
     #收礼人积分池
-    receiver_pool_point=round(coin*10*0.01,2)
+    receiver_pool_point=round(coin*10*0.05,2)
     female_guest_point_record=del_female_guest_point_record({receiver,sender_group_leader_id,sender_family_leader_id,receiver_group_leader_id,receiver_family_leader_id,anchor})
     familyratio=0.01
     if scene=='family':
@@ -66,6 +80,9 @@ def cal_point(coin,sender,receiver,anchor=None,scene='room'):
     elif scene== 'chat':
         groupratio=0
         familyratio=0
+        if cps and sender_app_info =='jinquan':
+            receiver_pool_point=receiver_pool_point*1.2
+            receiver_point=receiver_point*1.2
     else:
         groupratio=0.017
 
@@ -78,7 +95,8 @@ def cal_point(coin,sender,receiver,anchor=None,scene='room'):
     sender_group_leader_money+=coin*10*groupratio
 
     #场地费
-    anchor_changdifei+=coin*10*0.1
+    if anchor:
+        anchor_changdifei+=coin*10*0.1
 
     #自己收无场地费
     if receiver==anchor:
@@ -114,38 +132,69 @@ def cal_point(coin,sender,receiver,anchor=None,scene='room'):
     if total_group_money:
         for i in female_guest_point_record:
             if i.get('user_id')==receiver_group_leader_id:
-                assert i.get('point') - round(total_group_money,2) ==0, '小组长 积分报错啦！！'
-                print('收礼人小组长 积分测试通过')
+                if time_range[0]<datetime.datetime.strptime(i.get('create_time'),'%Y-%m-%d %H:%M:%S')<time_range[1]:
+                    assert i.get('point') - round(total_group_money,2) ==0, '小组长 积分报错啦！！'
+                    print('收礼人小组长 积分测试通过')
+                else:
+                    assert total_group_money==0, f'小组长积分报错啦，应得积分：{total_group_money}，实际获得：0'
+                    print('收礼人小组长 积分测试通过')
             elif i.get('user_id')==receiver_family_leader_id:
-                assert i.get('point') - round(total_family_money,2) ==0, '家族长 积分报错啦！！'
-                print('收礼人家族长 积分测试通过')
+                if time_range[0]<datetime.datetime.strptime(i.get('create_time'),'%Y-%m-%d %H:%M:%S')<time_range[1]:
+                    assert i.get('point') - round(total_family_money,2) ==0, '家族长 积分报错啦！！'
+                    print('收礼人家族长 积分测试通过')
+                else:
+                    assert total_family_money==0, f'家族长积分报错啦，应得积分：{total_family_money}，实际获得：0'
+                    print('收礼人家族长 积分测试通过')
             elif i.get('user_id')==receiver:
-                assert i.get('point') - round(receiver_point,2) ==0, '收礼人 积分报错啦！！'
-                print('收礼人 积分测试通过')
+                if time_range[0]<datetime.datetime.strptime(i.get('create_time'),'%Y-%m-%d %H:%M:%S')<time_range[1]:
+                    assert i.get('point') - round(receiver_point,2) ==0, '收礼人 积分报错啦！！'
+                    print('收礼人 积分测试通过')
+                else:
+                    assert receiver_point==0, f'收礼人积分报错啦，应得积分：{receiver_point}，实际获得：0'
+                    print('收礼人 积分测试通过')
     else:
         for i in female_guest_point_record:
             if i.get('user_id')==receiver_group_leader_id:
-                assert i.get('point') - round(receiver_group_leader_money,2) ==0, '收礼人小组长 积分报错啦！！'
-                print('收礼人小组长 积分测试通过')
+                if time_range[0]<datetime.datetime.strptime(i.get('create_time'),'%Y-%m-%d %H:%M:%S')<time_range[1]:
+                    assert i.get('point') - round(receiver_group_leader_money,2) ==0, '收礼人小组长 积分报错啦！！'
+                    print('收礼人小组长 积分测试通过')
+                else:
+                    assert receiver_group_leader_money==0, f'收礼人小组长积分报错啦，应得积分：{receiver_group_leader_money}，实际获得：0'
+                    print('收礼人小组长 积分测试通过')
             elif i.get('user_id')==sender_group_leader_id:
-                assert i.get('point') - round(sender_group_leader_money,2) ==0, '送礼人小组长 积分报错啦！！'
-                print('送礼人小组长  积分测试通过')
+                if time_range[0]<datetime.datetime.strptime(i.get('create_time'),'%Y-%m-%d %H:%M:%S')<time_range[1]:
+                    assert i.get('point') - round(sender_group_leader_money,2) ==0, '送礼人小组长 积分报错啦！！'
+                    print('送礼人小组长  积分测试通过')
+                else:
+                    assert round(sender_group_leader_money,2) ==0, '送礼人小组长 积分报错啦！！'
+                    print('送礼人小组长  积分测试通过')
             elif i.get('user_id')==receiver_family_leader_id:
-                assert i.get('point') - round(receiver_family_leader_money,2) ==0, '收礼人家族长 积分报错啦！！'
-                print('收礼人家族长  积分测试通过')
+                if time_range[0]<datetime.datetime.strptime(i.get('create_time'),'%Y-%m-%d %H:%M:%S')<time_range[1]:
+                    assert i.get('point') - round(receiver_family_leader_money,2) ==0, '收礼人家族长 积分报错啦！！'
+                    print('收礼人家族长  积分测试通过')
+                else:
+                    assert round(receiver_family_leader_money,2) ==0, '收礼人家族长 积分报错啦！！'
+                    print('收礼人家族长  积分测试通过')
             elif i.get('user_id')==sender_family_leader_id:
-                assert i.get('point') - round(sender_family_leader_money,2) ==0, '送礼人家族长 积分报错啦！！'
-                print('送礼人家族长 积分测试通过')
+                if time_range[0]<datetime.datetime.strptime(i.get('create_time'),'%Y-%m-%d %H:%M:%S')<time_range[1]:
+                    assert i.get('point') - round(sender_family_leader_money,2) ==0, '送礼人家族长 积分报错啦！！'
+                    print('送礼人家族长 积分测试通过')
+                else:
+                    assert round(sender_family_leader_money,2) ==0, '送礼人家族长 积分报错啦！！'
+                    print('送礼人家族长 积分测试通过')
             elif i.get('user_id')==receiver:
-                assert i.get('point') - round(receiver_point,2) ==0, '收礼人 积分报错啦！！'
-                print('收礼人 积分测试通过')
+                if time_range[0]<datetime.datetime.strptime(i.get('create_time'),'%Y-%m-%d %H:%M:%S')<time_range[1]:
+                    assert i.get('point') - round(receiver_point,2) ==0, '收礼人 积分报错啦！！'
+                    print('收礼人 积分测试通过')
+                else:
+                    assert round(receiver_point,2) ==0, '收礼人 积分报错啦！！'
+                    print('收礼人 积分测试通过')
 
     #积分池
-    receiver_jackpot=round(coin*10*0.01,2)
+    receiver_jackpot=receiver_pool_point
     print(f'收礼人积分池 {receiver_jackpot}')
-    couple_relation_unique=mongoUtil.connectMongo('jinquan','couple_relation_unique')
-    cps=list(couple_relation_unique.find({'$or':[{'user_id':sender,'bind_user_id':receiver,'deleted':0},{'user_id':receiver,'bind_user_id':sender,'deleted':0}]}))
-    user=mongoUtil.connectMongo('jinquan','user')
+
+
     userss=list(user.find({'_id':receiver}))
     app_info='jinquan_leader'
     if userss:
@@ -155,7 +204,13 @@ def cal_point(coin,sender,receiver,anchor=None,scene='room'):
         jackpot_point_record = mongoUtil.connectMongo('jinquan', 'jackpot_point_record')
         jack_point=list(jackpot_point_record.find({'receiver_id':receiver}).sort([('_id', -1)]).limit(1))
         if jack_point:
-            assert receiver_jackpot-jack_point[0].get('score')==0, '收礼人积分池报错'
+            if jack_point[0].get('side') =='OUT':
+                assert receiver_jackpot==0, '收礼人积分池报错'
+            else:
+                if time_range[0]<jack_point[0].get('create_time')<time_range[1]:
+                    assert receiver_jackpot-jack_point[0].get('score')==0, '收礼人积分池报错'
+                else:
+                    assert receiver_jackpot==0, '收礼人积分池报错'
             print('收礼人积分池正确')
         else:
             print('收礼人积分池报错')
@@ -346,14 +401,12 @@ def cal_point_0525_guanlifei(sender,receiver,real_coin=None):
         print('无积分池， 不需验证')
 
 if __name__ == '__main__':
-    user_info={'qingwa':'1754679201','water':'1758059141','maoer':'1726293911','nier':'1604468611','cat':'1452460951',
-               'moon':'1480845661','sunflower':'1604589981','iq':'1622722681','huoxing':'1756678591','ge': '1600740271',
-               'c3c':'1733610301','sun':'1734748351','qu':'1754927791'}
+    user_info={'qingwa':'1867291051','water':'1787542671','ge': '1772113311','cat':'1452460951',
+               'moon':'1480845661','c3c':'1733610301'}
 
     #cal_point(100,receiver=user_info.get('water'),anchor=cat,glSingle=False)
     #del_female_guest_point_record([duoilamisao1,moon,cat],delete=1),glSingle=False
     sender=user_info.get('qingwa')
-    receiver=user_info.get('water')
-    cal_point_0525_guanlifei(sender,receiver)
-    # update_blind_box(sender,receiver,10)
-    #update_sign_time_groupld_familyld('1604468611',sign_old=False)
+    receiver=user_info.get('water') #,anchor=user_info.get('cat')
+    cal_point(sender,receiver,scene='family')
+    # cal_point_0525_guanlifei(sender,receiver)

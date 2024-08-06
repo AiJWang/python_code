@@ -148,12 +148,32 @@ def update_blind_box(cuid, buid, num=3):
 
 
 
-def update_golden_tigers(uid, num=0):
+def update_golden_tigers(uid, num=1):
     '''修改金虎数量'''
     user_attach = mongoUtil.connectMongo('jinquan', 'user_attach')
     res=user_attach.update_many({'_id': uid}, {'$set': {'golden_tigers': num}})
     print(res.modified_count)
 
+def update_golden_tigers_maitian(user_id,cp_user_id,num=3):
+    '''修改金虎数量'''
+    gold_dragon = mongoUtil.connectMongo('maitian','gold_dragon', db='backpack')
+    cp_tag=f'{user_id}_{cp_user_id}' if cp_user_id>user_id else f'{cp_user_id}_{user_id}'
+    print(cp_tag)
+    data_dict={'biz': 'maitian', 'app': 'maitian',
+               'user_id': user_id,
+               'cp_user_id': cp_user_id,
+               'cp_tag': cp_tag,
+               'dragon_num': num, 'deleted': 0,
+               'create_time': datetime.datetime.now(),
+               'update_time': datetime.datetime.now(),
+               'delete_time': datetime.datetime(1970, 1, 1, 0, 0)}
+    res=list(gold_dragon.find({'user_id':user_id,'cp_user_id':cp_user_id}))
+    if res:
+        count=gold_dragon.update_many({'user_id':user_id,'cp_user_id':cp_user_id}, {'$set': {'dragon_num': num}}).modified_count
+        print(f'count:{count}')
+    else:
+        ss=gold_dragon.insert_one(data_dict).inserted_id
+        print(f'插入数据{ss}')
 
 def get_room_type(familyid='',anchor_id=''):
     '''判断房间类型'''
@@ -268,4 +288,7 @@ if __name__ == '__main__':
     print(datetime.datetime.strptime(time1,'%Y-%m-%d %H:%M:%S'))
     # update_unsigned_female_on_imc_time('1760777471')
     #update_sign_start_time('1760777471')
-    update_blind_box('1754679201','1768169111')
+    # user_info={'qingwa':'29942421','cat':'28632441','moon':'29907791'}
+    # update_golden_tigers_maitian('29942421','29907791')
+    #update_golden_tigers('1881119701',num=3)
+    update_blind_box('1881119701','1880857211',10)
