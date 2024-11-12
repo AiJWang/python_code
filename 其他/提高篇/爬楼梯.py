@@ -25,8 +25,27 @@ def palouti1(n):
     return res
 
 
+def palouti2(n):
+    if n<3:
+        return n
+    if res:=resdisss.get(n,None):
+        return res
+    else:
+        res= palouti2(n-1)+palouti2(n-2)
+        resdisss[n]=res
+        return res
+
+def palouti3(n):
+    if n<3:
+        return n
+    resi,resj=1,2
+    for i in range(3,n+1):
+        res=resi+resj
+        resi,resj=resj,res
+    return res
+
 if __name__ == '__main__':
     res=palouti(50)
     print(res)
-    res1=palouti1(50)
+    res1=palouti3(50)
     print(res1)

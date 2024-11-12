@@ -1,5 +1,5 @@
 import functools
-
+from functools import reduce
 
 
 def print_dec(func):
@@ -55,7 +55,16 @@ def num_handel(*args,type='+'):
         return res
 
 
+def decaross(fn):
+    def inner(*args,**kwargs):
+        print('hahaha')
+        return fn(*args,**kwargs)
+    return inner
 
+@decaross
+def sayhello(*args,**kwargs):
+    print(args,kwargs)
 
 if __name__ == '__main__':
-    num_handel(1,2,3,4,type='+')
+    #num_handel(1,2,3,4,type='+')
+    sayhello(1,2,3,name='zhangsan',age=12)
